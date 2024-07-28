@@ -2,6 +2,7 @@
 #include "handler.h"
 #include "audiosys.h"
 #include "songinfo.h"
+#include "dumper.h"
 
 #include "m_gbr.h"
 #include "device/s_dmg.h"
@@ -135,7 +136,7 @@ struct  GBRDMG_TAG {
 
 };
 
-struct {
+static struct {
 	char* title;
 	char* artist;
 	char* copyright;
@@ -603,7 +604,6 @@ static void timer_event(KMEVENT *event, KMEVENT_ITEM_ID curid, GBRDMG *THIS_)
 
 //Ç±Ç±Ç©ÇÁÉ_ÉìÉvê›íË
 static NEZ_PLAY *pNezPlayDump;
-Uint32 (*dump_MEM_GB)(Uint32 a,unsigned char* mem);
 static Uint32 dump_MEM_GB_bf(Uint32 menu,unsigned char* mem){
 	int i;
 	switch(menu){

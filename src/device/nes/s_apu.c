@@ -4,7 +4,7 @@
 #include "../../format/handler.h"
 #include "../../format/nsf6502.h"
 #include "logtable.h"
-#include "m_nsf.h"
+#include "../../format/m_nsf.h"
 #include "s_apu.h"
 #include <time.h>
 #include <math.h>
@@ -275,7 +275,7 @@ __inline static void EnvelopeDecayStep(ENVELOPEDECAY *ed)
 		ed->timer--;
 }
 
-__inline void SweepStep(SWEEP *sw, Uint32 *wl)
+/*__inline*/ void __forceinline SweepStep(SWEEP *sw, Uint32 *wl)
 {
 	if (sw->active && sw->shifter && --sw->timer > 7)
 	{

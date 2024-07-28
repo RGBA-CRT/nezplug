@@ -37,14 +37,14 @@ extern int (*ioview_ioread_DEV_ADPCM  )(int a);
 extern int (*ioview_ioread_DEV_ADPCM2 )(int a);
 extern int (*ioview_ioread_DEV_MSX    )(int a);
 
-struct {
+static struct {
 	char* title;
 	char* artist;
 	char* copyright;
 	char detail[1024];
 }songinfodata;
 
-int (*memview_memread)(int a);
+static int (*memview_memread)(int a);
 
 
 static Uint GetWordLE(Uint8 *p)
