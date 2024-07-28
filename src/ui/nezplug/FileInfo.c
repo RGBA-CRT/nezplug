@@ -6,6 +6,8 @@
 #include "ChMask.h"
 #include "Dump.h"
 
+HINSTANCE instance;
+
 extern struct {
 	char* title;
 	char* artist;

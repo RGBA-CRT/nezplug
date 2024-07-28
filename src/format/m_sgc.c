@@ -2,6 +2,7 @@
 #include "handler.h"
 #include "audiosys.h"
 #include "songinfo.h"
+#include "dumper.h"
 
 #include "m_sgc.h"
 
@@ -301,7 +302,6 @@ Uint32 memview_memread_sgc(Uint32 a){
 
 //Ç±Ç±Ç©ÇÁÉ_ÉìÉvê›íË
 static NEZ_PLAY *pNezPlayDump;
-Uint32 (*dump_MEM_MSX)(Uint32 a,unsigned char* mem);
 static Uint32 dump_MEM_MSX_bf(Uint32 menu,unsigned char* mem){
 	int i;
 	switch(menu){
@@ -313,9 +313,6 @@ static Uint32 dump_MEM_MSX_bf(Uint32 menu,unsigned char* mem){
 	return -2;
 }
 //----------
-extern Uint32 (*ioview_ioread_DEV_SN76489)(Uint32 a);
-
-Uint32 (*dump_DEV_SN76489)(Uint32 a,unsigned char* mem);
 static Uint32 dump_DEV_SN76489_bf(Uint32 menu,unsigned char* mem){
 	int i;
 	switch(menu){
@@ -341,7 +338,6 @@ static Uint32 dump_DEV_SN76489_bf2(Uint32 menu,unsigned char* mem){
 //----------
 extern Uint32 (*ioview_ioread_DEV_OPLL)(Uint32 a);
 
-Uint32 (*dump_DEV_OPLL)(Uint32 a,unsigned char* mem);
 static Uint32 dump_DEV_OPLL_bf(Uint32 menu,unsigned char* mem){
 	int i;
 	switch(menu){
@@ -538,7 +534,7 @@ static void terminate(SGCSEQ *THIS_)
 	XFREE(THIS_);
 }
 
-struct {
+static struct {
 	char* title;
 	char* artist;
 	char* copyright;

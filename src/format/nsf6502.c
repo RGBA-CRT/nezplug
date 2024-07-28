@@ -193,9 +193,9 @@ static void __fastcall NullWrite(void *pNezPlay, Uint A, Uint V)
 
 
 //ここからメモリービュアー設定
-Uint32 (*memview_memread)(Uint32 a);
-NEZ_PLAY* memview_context;
-int MEM_MAX,MEM_IO,MEM_RAM,MEM_ROM;
+static Uint32 (*memview_memread)(Uint32 a);
+static NEZ_PLAY* memview_context;
+static int MEM_MAX,MEM_IO,MEM_RAM,MEM_ROM;
 Uint32 memview_memread_nes(Uint32 a){
 	if(((NSFNSF*)((NEZ_PLAY*)memview_context)->nsf)->nprh[(a>>12) & 0xF]!=NULL)
 		return ExtRdTbl[(a>>12) & 0xF](memview_context,a);
@@ -353,7 +353,7 @@ const static NES_AUDIO_HANDLER nsf6502_audio_handler[] = {
 
 #ifdef _WIN32
 extern int __stdcall MulDiv(int nNumber,int nNumerator,int nDenominator);
-static Uint32 __forceinline muldiv(Uint32 m, Uint32 n, Uint32 d)
+Uint32 __forceinline muldiv(Uint32 m, Uint32 n, Uint32 d)
 {
 	return MulDiv(m,n,d);
 }

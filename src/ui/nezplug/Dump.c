@@ -282,7 +282,7 @@ unsigned int dump_menu[MENU_MAX]={
 	 IDC_DUMP10,
 };
 
-int a,b;
+// static int a,b;
 unsigned char txt[524288];
 unsigned char mem[65536];
 unsigned char ffile[400];

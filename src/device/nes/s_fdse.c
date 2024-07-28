@@ -1,7 +1,7 @@
 //#include "common/win32/win32l.h"
 #include <windows.h>
 
-#include "../nestypes.h"
+#include "../../nestypes.h"
 #include "../../format/audiosys.h"
 #include "../../format/handler.h"
 #include "../../format/nsf6502.h"

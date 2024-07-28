@@ -5,6 +5,8 @@
 #include "audiosys.h"
 #include "songinfo.h"
 #include "nsf6502.h"
+#include "dumper.h"
+
 #include "device/nes/s_apu.h"
 #include "device/nes/s_mmc5.h"
 #include "device/nes/s_vrc6.h"
@@ -25,15 +27,15 @@
 #define EXTSOUND_FME7	(1 << 5)
 #define EXTSOUND_J86	(1 << 6)	/* JALECO-86 */
 
-struct {
+static struct {
 	char* title;
 	char* artist;
 	char* copyright;
 	char detail[1024];
 }songinfodata;
-Uint8 titlebuffer[0x21];
-Uint8 artistbuffer[0x21];
-Uint8 copyrightbuffer[0x21];
+static Uint8 titlebuffer[0x21];
+static Uint8 artistbuffer[0x21];
+static Uint8 copyrightbuffer[0x21];
 
 /* RAM area */
 static Uint32 __fastcall ReadRam(void *pNezPlay, Uint32 A)
@@ -276,7 +278,7 @@ const static NES_RESET_HANDLER nsf_mapper_reset_handler[] = {
 
 //‚±‚±‚©‚çƒ_ƒ“ƒvÝ’è
 static NEZ_PLAY *pNezPlayDump;
-Uint32 (*dump_MEM_FC)(Uint32 a,unsigned char* mem);
+
 static Uint32 dump_MEM_FC_bf(Uint32 menu,unsigned char* mem){
 	int i;
 	switch(menu){
@@ -289,7 +291,6 @@ static Uint32 dump_MEM_FC_bf(Uint32 menu,unsigned char* mem){
 }
 //----------
 extern Uint8 *regdata_2a03;
-Uint32 (*dump_DEV_2A03)(Uint32 a,unsigned char* mem);
 const Uint8 *BASE64="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 static Uint32 dump_DEV_2A03_bf(Uint32 menu,unsigned char* mem){
 	int i,j,k,l,adr;Uint32 ac;
@@ -336,7 +337,6 @@ extern int FDS_RealMode;
 #define REGREAD(y) ((int)FDSOUT(fds_regdata2[(y)&0x3f]))
 #define REGREAD2(y) ((int)fds_regdata2[(y)&0x3f]/4)
 
-Uint32 (*dump_DEV_FDS)(Uint32 a,unsigned char* mem);
 static Uint32 dump_DEV_FDS_bf(Uint32 menu,unsigned char* mem){
 	int i,j,k;
 	static const char *hexstr="0123456789ABCDEF";
@@ -398,8 +398,6 @@ static Uint32 dump_DEV_FDS_bf(Uint32 menu,unsigned char* mem){
 }
 //----------
 extern Uint8 *mmc5_regdata;
-
-Uint32 (*dump_DEV_MMC5)(Uint32 a,unsigned char* mem);
 static Uint32 dump_DEV_MMC5_bf(Uint32 menu,unsigned char* mem){
 	int i;
 	switch(menu){
@@ -416,7 +414,6 @@ extern Uint8 *vrc6_regdata;
 extern Uint8 *vrc6_regdata2;
 extern Uint8 *vrc6_regdata3;
 
-Uint32 (*dump_DEV_VRC6)(Uint32 a,unsigned char* mem);
 static Uint32 dump_DEV_VRC6_bf(Uint32 menu,unsigned char* mem){
 	int i;
 	switch(menu){
@@ -434,7 +431,6 @@ static Uint32 dump_DEV_VRC6_bf(Uint32 menu,unsigned char* mem){
 //----------
 extern Uint8 *n106_regdata;
 
-Uint32 (*dump_DEV_N106)(Uint32 a,unsigned char* mem);
 static Uint32 dump_DEV_N106_bf(Uint32 menu,unsigned char* mem){
 	int i,j,k,l;
 	switch(menu){
@@ -465,9 +461,6 @@ static Uint32 dump_DEV_N106_bf(Uint32 menu,unsigned char* mem){
 	return -2;
 }
 //----------
-extern Uint32 (*ioview_ioread_DEV_AY8910)(Uint32 a);
-
-Uint32 (*dump_DEV_AY8910)(Uint32 a,unsigned char* mem);
 static Uint32 dump_DEV_AY8910_bf(Uint32 menu,unsigned char* mem){
 	int i;
 	switch(menu){
@@ -480,9 +473,6 @@ static Uint32 dump_DEV_AY8910_bf(Uint32 menu,unsigned char* mem){
 	return -2;
 }
 //----------
-extern Uint32 (*ioview_ioread_DEV_OPLL)(Uint32 a);
-
-Uint32 (*dump_DEV_OPLL)(Uint32 a,unsigned char* mem);
 static Uint32 dump_DEV_OPLL_bf(Uint32 menu,unsigned char* mem){
 	int i;
 	switch(menu){

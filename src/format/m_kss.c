@@ -2,6 +2,7 @@
 #include "handler.h"
 #include "audiosys.h"
 #include "songinfo.h"
+#include "dumper.h"
 
 #include "m_kss.h"
 
@@ -345,9 +346,9 @@ static void vsync_event(KMEVENT *event, KMEVENT_ITEM_ID curid, KSSSEQ *THIS_)
 }
 
 //ここからメモリービュアー設定
-Uint32 (*memview_memread)(Uint32 a);
-KSSSEQ* memview_context;
-int MEM_MAX,MEM_IO,MEM_RAM,MEM_ROM;
+static Uint32 (*memview_memread)(Uint32 a);
+static KSSSEQ* memview_context;
+static int MEM_MAX,MEM_IO,MEM_RAM,MEM_ROM;
 Uint32 memview_memread_kss(Uint32 a){
 	return read_event(memview_context,a);
 }
@@ -355,7 +356,6 @@ Uint32 memview_memread_kss(Uint32 a){
 
 //ここからダンプ設定
 static NEZ_PLAY *pNezPlayDump;
-Uint32 (*dump_MEM_MSX)(Uint32 a,unsigned char* mem);
 static Uint32 dump_MEM_MSX_bf(Uint32 menu,unsigned char* mem){
 	int i;
 	switch(menu){
@@ -367,9 +367,6 @@ static Uint32 dump_MEM_MSX_bf(Uint32 menu,unsigned char* mem){
 	return -2;
 }
 //----------
-extern Uint32 (*ioview_ioread_DEV_AY8910)(Uint32 a);
-
-Uint32 (*dump_DEV_AY8910)(Uint32 a,unsigned char* mem);
 static Uint32 dump_DEV_AY8910_bf(Uint32 menu,unsigned char* mem){
 	int i;
 	switch(menu){
@@ -382,9 +379,6 @@ static Uint32 dump_DEV_AY8910_bf(Uint32 menu,unsigned char* mem){
 	return -2;
 }
 //----------
-extern Uint32 (*ioview_ioread_DEV_SN76489)(Uint32 a);
-
-Uint32 (*dump_DEV_SN76489)(Uint32 a,unsigned char* mem);
 static Uint32 dump_DEV_SN76489_bf(Uint32 menu,unsigned char* mem){
 	int i;
 	switch(menu){
@@ -408,9 +402,6 @@ static Uint32 dump_DEV_SN76489_bf2(Uint32 menu,unsigned char* mem){
 	return -2;
 }
 //----------
-extern Uint32 (*ioview_ioread_DEV_SCC)(Uint32 a);
-
-Uint32 (*dump_DEV_SCC)(Uint32 a,unsigned char* mem);
 static Uint32 dump_DEV_SCC_bf(Uint32 menu,unsigned char* mem){
 	int i;
 	switch(menu){
@@ -431,9 +422,6 @@ static Uint32 dump_DEV_SCC_bf(Uint32 menu,unsigned char* mem){
 	return -2;
 }
 //----------
-extern Uint32 (*ioview_ioread_DEV_OPL)(Uint32 a);
-
-Uint32 (*dump_DEV_OPL)(Uint32 a,unsigned char* mem);
 static Uint32 dump_DEV_OPL_bf(Uint32 menu,unsigned char* mem){
 	int i;
 	switch(menu){
@@ -446,9 +434,6 @@ static Uint32 dump_DEV_OPL_bf(Uint32 menu,unsigned char* mem){
 	return -2;
 }
 //----------
-extern Uint32 (*ioview_ioread_DEV_OPLL)(Uint32 a);
-
-Uint32 (*dump_DEV_OPLL)(Uint32 a,unsigned char* mem);
 static Uint32 dump_DEV_OPLL_bf(Uint32 menu,unsigned char* mem){
 	int i;
 	switch(menu){
@@ -461,10 +446,6 @@ static Uint32 dump_DEV_OPLL_bf(Uint32 menu,unsigned char* mem){
 	return -2;
 }
 //----------
-extern Uint32 (*ioview_ioread_DEV_ADPCM)(Uint32 a);
-extern Uint32 (*ioview_ioread_DEV_ADPCM2)(Uint32 a);
-
-Uint32 (*dump_DEV_ADPCM)(Uint32 a,unsigned char* mem);
 static Uint32 dump_DEV_ADPCM_bf(Uint32 menu,unsigned char* mem){
 	int i;
 	switch(menu){

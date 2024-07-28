@@ -44,6 +44,13 @@ enum {
 	REGID_REGS8SIZE = ((REGID_MAX + (sizeof(int) - 1)) & ~(sizeof(int) - 1))
 };
 
+typedef struct {
+	Uint8 post;
+	Uint8 pre;
+	Uint8 adr;
+	Uint8 op;
+} OPT_ITEM;
+
 typedef struct KMZ80_CONTEXT_TAG KMZ80_CONTEXT;
 struct KMZ80_CONTEXT_TAG {
 	Uint8 regs8[REGID_REGS8SIZE];
@@ -68,13 +75,13 @@ struct KMZ80_CONTEXT_TAG {
 	/* サイクルカウンタ */
 	Uint32 cycle;
 	/* オペコードテーブル */
-	void *opt;
+	OPT_ITEM *opt;
 	/* オペコードCBテーブル */
-	void *optcb;
+	Uint8 *optcb;
 	/* オペコードEDテーブル */
-	void *opted;
+	OPT_ITEM *opted;
 	/* 追加サイクルテーブル */
-	void *cyt;
+	Uint8 *cyt;
 	/* R800メモリーページ(ページブレイクの確認用) */
 	Uint32 mempage;
 	/* 特殊用途割り込みベクタ */
