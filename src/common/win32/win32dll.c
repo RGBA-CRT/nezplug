@@ -24,6 +24,9 @@ void *GetDLLInstance(void)
 	return hDLLInstance;
 }
 
+void DumpWindowInit();
+void DumpWindowDeinit();
+void LogTableDeinitialize();
 BOOL WINAPI DllMain(
 	HINSTANCE hinstDLL,
 	DWORD fdwReason,
@@ -34,9 +37,12 @@ BOOL WINAPI DllMain(
 	{
 		hDLLInstance = hinstDLL;
 		GetModuleFileName(hinstDLL, dllpath, MAX_PATH);
+		DumpWindowInit();
 	}
 	else if (fdwReason == DLL_PROCESS_DETACH)
 	{
+		DumpWindowDeinit();
+		LogTableDeinitialize();
 	}
 	return TRUE;
 }

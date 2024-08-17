@@ -2,8 +2,8 @@
 #include "logtable.h"
 #include <math.h>
 
-static Uint32 lineartbl[(1 << LIN_BITS) + 1];
-static Uint32 logtbl[1 << LOG_BITS];
+static Uint32* lineartbl = NULL;
+static Uint32* logtbl = NULL;
 Uint32 LinearToLog(Int32 l)
 {
 	return (l < 0) ? (lineartbl[-l] + 1) : lineartbl[l];
@@ -28,6 +28,8 @@ void LogTableInitialize(void)
 	double a;
 	if (initialized) return;
 	initialized = 1;
+	lineartbl = (Uint32*)malloc(((1 << LIN_BITS) + 1) * sizeof(Uint32));
+	logtbl = (Uint32*)malloc((1 << LOG_BITS) * sizeof(Uint32));
 	for (i = 0; i < (1 << LOG_BITS); i++)
 	{
 		a = (1 << LOG_LIN_BITS) / pow(2, i / (double)(1 << LOG_BITS));
@@ -41,4 +43,10 @@ void LogTableInitialize(void)
 		ua = (Uint32)((LOG_LIN_BITS - (log(a) / log(2))) * (1 << LOG_BITS));
 		lineartbl[i] = ua << 1;
 	}
+}
+
+
+void LogTableDeinitialize(void){
+	if(lineartbl) {free(lineartbl);lineartbl=NULL;}
+	if(logtbl) {free(logtbl);logtbl=NULL;}
 }

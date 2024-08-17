@@ -283,10 +283,14 @@ unsigned int dump_menu[MENU_MAX]={
 };
 
 // static int a,b;
-unsigned char txt[524288];
-unsigned char mem[65536];
-unsigned char ffile[400];
-unsigned char dfile[400];
+// unsigned char txt[524288];
+// unsigned char mem[65536];
+// unsigned char ffile[400];
+// unsigned char dfile[400];
+unsigned char* txt = NULL;
+unsigned char* mem = NULL;
+unsigned char* ffile = NULL;
+unsigned char* dfile = NULL;
 
 #define DEVICE(x,y) case x: return y != NULL ? y(dumpnum,(unsigned char *)mem) : -2;break;
 /* return値
@@ -471,3 +475,16 @@ LRESULT CALLBACK DumpDialogProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM l
 	return FALSE;
 }
 
+void DumpWindowInit(){
+	if(!txt) txt = (char*)malloc(524288);
+	if(!mem) mem = (char*)malloc(65536);
+	if(!ffile) ffile = (char*)malloc(524288);
+	if(!dfile) dfile = (char*)malloc(524288);
+}
+
+void DumpWindowDeinit(){
+	if(txt) {free(txt);txt=NULL;}
+	if(mem) {free(mem);mem=NULL;}
+	if(ffile) {free(ffile);ffile=NULL;}
+	if(dfile) {free(dfile);dfile=NULL;}	
+}

@@ -37,6 +37,7 @@ HNSF NSFSDKAPI NSFSDK_Load(void *pData, unsigned uSize)
 		  NEZDelete(d->ctx);
 		XFREE(d);
 	}
+
 	return 0;
 }
 

@@ -21,7 +21,7 @@ set(src_list
 	${BASE_DIR}/src/cpu/kmz80/kmz80.c
 	${BASE_DIR}/src/cpu/kmz80/kmz80c.c
 	${BASE_DIR}/src/cpu/kmz80/kmz80t.c
-	${BASE_DIR}/src/cpu/kmz80/makeft.c
+	# ${BASE_DIR}/src/cpu/kmz80/makeft.c
 	# ${BASE_DIR}/src/cpu/kmz80/test/kmhd180.c
 	${BASE_DIR}/src/device/nes/logtable.c
 	${BASE_DIR}/src/device/nes/s_apu.c
@@ -29,7 +29,7 @@ set(src_list
 	${BASE_DIR}/src/device/nes/s_fds1.c
 	${BASE_DIR}/src/device/nes/s_fds2.c
 	${BASE_DIR}/src/device/nes/s_fds3.c
-	${BASE_DIR}/src/device/nes/s_fdse.c
+	# ${BASE_DIR}/src/device/nes/s_fdse.c
 	${BASE_DIR}/src/device/nes/s_fme7.c
 	${BASE_DIR}/src/device/nes/s_mmc5.c
 	${BASE_DIR}/src/device/nes/s_n106.c
@@ -76,27 +76,45 @@ set(src_list
 	# ${BASE_DIR}/src/ui/winamp/con_nez.c
 	# ${BASE_DIR}/src/ui/winamp/in_nez.c
 	# ${BASE_DIR}/src/ui/winamp/seq_nez.c
-	${BASE_DIR}/src/zlib/adler32.c
-	${BASE_DIR}/src/zlib/compress.c
-	${BASE_DIR}/src/zlib/crc32.c
-	${BASE_DIR}/src/zlib/deflate.c
-	# ${BASE_DIR}/src/zlib/example.c
-	${BASE_DIR}/src/zlib/gzio.c
-	${BASE_DIR}/src/zlib/infback.c
-	${BASE_DIR}/src/zlib/inffast.c
-	${BASE_DIR}/src/zlib/inflate.c
-	${BASE_DIR}/src/zlib/inftrees.c
-	${BASE_DIR}/src/zlib/memzip.c
-	# ${BASE_DIR}/src/zlib/minigzip.c
-	${BASE_DIR}/src/zlib/nez.c
-	${BASE_DIR}/src/zlib/trees.c
-	${BASE_DIR}/src/zlib/uncompr.c
-	${BASE_DIR}/src/zlib/zutil.c
+	# ${BASE_DIR}/src/zlib/adler32.c
+	# ${BASE_DIR}/src/zlib/compress.c
+	# ${BASE_DIR}/src/zlib/crc32.c
+	# ${BASE_DIR}/src/zlib/deflate.c
+	# # ${BASE_DIR}/src/zlib/example.c
+	# ${BASE_DIR}/src/zlib/gzio.c
+	# ${BASE_DIR}/src/zlib/infback.c
+	# ${BASE_DIR}/src/zlib/inffast.c
+	# ${BASE_DIR}/src/zlib/inflate.c
+	# ${BASE_DIR}/src/zlib/inftrees.c
+	# ${BASE_DIR}/src/zlib/memzip.c
+	# # ${BASE_DIR}/src/zlib/minigzip.c
+	# ${BASE_DIR}/src/zlib/nez.c
+	# ${BASE_DIR}/src/zlib/trees.c
+	# ${BASE_DIR}/src/zlib/uncompr.c
+	# ${BASE_DIR}/src/zlib/zutil.c
 )
+
+if(WIN32)
+	set(extra_srcs  
+		${BASE_DIR}/src/common/nsfsdk/npnez.def
+		${BASE_DIR}/src/ui/nezplug/nezplug.rc
+	)
+else()
+	message(FATAL_ERROR "currentry not supported")
+endif()
+# set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fcommon -fno-zero-initialized-in-bss")
 # Add an executable
-add_library(${TARGET_NAME} SHARED 
-	${src_list}
-	${BASE_DIR}/src/common/nsfsdk/npnez.def)
+add_library(${TARGET_NAME} SHARED ${src_list} ${extra_srcs})
+
+target_link_options(${TARGET_NAME} PUBLIC LINKER:-Map=${TARGET_NAME}.map)
+# target_link_options(${TARGET_NAME} PUBLIC LINKER:-fcommon -fno-zero-initialized-in-bss)
+# target_compile_options(${TARGET_NAME} PUBLIC -fcommon -fno-zero-initialized-in-bss -v)
+# ちなみに↑は効かなかった。でかいグローバル変数のせいでbssセクションが膨らみ、サイズがVC6比で増えてしまっている。
+
+# target_link_options(${TARGET_NAME} PUBLIC LINKER:--gc-sections)
+# target_compile_options(${TARGET_NAME} PUBLIC -ffunction-sections -fdata-sections)
+target_compile_options(${TARGET_NAME} PUBLIC -fomit-frame-pointer -fno-exceptions -fno-asynchronous-unwind-tables)
+target_link_options(${TARGET_NAME} PUBLIC LINKER:-fomit-frame-pointer -fno-exceptions -fno-asynchronous-unwind-tables)
 
 target_link_libraries(${TARGET_NAME} PRIVATE comdlg32 )
 target_include_directories(${TARGET_NAME} PRIVATE ${BASE_DIR}/src)
