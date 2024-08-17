@@ -31,25 +31,25 @@ LRESULT CALLBACK DialogProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 			EndDialog(hDlg, LOWORD(wParam));
 			return TRUE;
 		}
-		//ƒƒ‚ƒŠ[ƒrƒ…ƒA[ƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚½‚Æ‚«
+		//ãƒ¡ãƒ¢ãƒªãƒ¼ãƒ“ãƒ¥ã‚¢ãƒ¼ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ã
 		if (LOWORD(wParam) == IDC_MEMVIEW){
 			ShowWindow(
 				CreateDialog(instance,(LPCTSTR)IDD_MEMVIEW,hDlg,(DLGPROC)MemViewDialogProc),SW_SHOW);
 			return TRUE;
 		}
-		//ƒ`ƒƒƒ“ƒlƒ‹ƒ}ƒXƒNƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚½‚Æ‚«
+		//ãƒãƒ£ãƒ³ãƒãƒ«ãƒžã‚¹ã‚¯ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ã
 		if (LOWORD(wParam) == IDC_CHMASK){
 			ShowWindow(
 				CreateDialog(instance,(LPCTSTR)IDD_CHMASK,hDlg,(DLGPROC)ChMaskDialogProc),SW_SHOW);
 			return TRUE;
 		}
-		//ƒfƒoƒCƒXƒŒƒWƒXƒ^ƒrƒ…ƒA[ƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚½‚Æ‚«
+		//ãƒ‡ãƒã‚¤ã‚¹ãƒ¬ã‚¸ã‚¹ã‚¿ãƒ“ãƒ¥ã‚¢ãƒ¼ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ã
 		if (LOWORD(wParam) == IDC_DEVVIEW){
 			ShowWindow(
 				CreateDialog(instance,(LPCTSTR)IDD_IOVIEW,hDlg,(DLGPROC)IOViewDialogProc),SW_SHOW);
 			return TRUE;
 		}
-		//ƒ_ƒ“ƒvƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚½‚Æ‚«
+		//ãƒ€ãƒ³ãƒ—ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ã
 		if (LOWORD(wParam) == IDC_DUMP){
 			ShowWindow(
 				CreateDialog(instance,(LPCTSTR)IDD_DUMP,hDlg,(DLGPROC)DumpDialogProc),SW_SHOW);

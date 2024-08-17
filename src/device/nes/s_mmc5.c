@@ -407,13 +407,13 @@ const static NES_TERMINATE_HANDLER s_mmc5_terminate_handler[] = {
 	{ 0, }, 
 };
 
-//偙偙偐傜儗僕僗僞價儏傾乕愝掕
+//銇撱亾銇嬨倝銉偢銈广偪銉撱儱銈€兗瑷畾
 Uint8 *mmc5_regdata;
 Uint32 (*ioview_ioread_DEV_MMC5)(Uint32 a);
 static Uint32 ioview_ioread_bf(Uint32 a){
 	if(a<=0x15)return mmc5_regdata[a];else return 0x100;
 }
-//偙偙傑偱儗僕僗僞價儏傾乕愝掕
+//銇撱亾銇俱仹銉偢銈广偪銉撱儱銈€兗瑷畾
 
 void MMC5SoundInstall(NEZ_PLAY *pNezPlay)
 {
@@ -430,9 +430,9 @@ void MMC5SoundInstall(NEZ_PLAY *pNezPlay)
 	NESWriteHandlerInstall(pNezPlay, s_mmc5_write_handler);
 	NESResetHandlerInstall(pNezPlay->nrh, s_mmc5_reset_handler);
 
-	//偙偙偐傜儗僕僗僞價儏傾乕愝掕
+	//銇撱亾銇嬨倝銉偢銈广偪銉撱儱銈€兗瑷畾
 	mmc5_regdata = mmc5->regs;
 	ioview_ioread_DEV_MMC5 = ioview_ioread_bf;
-	//偙偙傑偱儗僕僗僞價儏傾乕愝掕
+	//銇撱亾銇俱仹銉偢銈广偪銉撱儱銈€兗瑷畾
 
 }

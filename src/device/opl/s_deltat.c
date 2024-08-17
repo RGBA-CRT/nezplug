@@ -223,7 +223,7 @@ static void sndwrite(YMDELTATPCMSOUND *sndp, Uint32 a, Uint32 v)
 			if (v & 1) sndp->common.key = 0;
 			break;
 		/* L,R,-,-,SAMPLE,DA/AD,RAMTYPE,ROM */
-		case 0x01:	/* Control Register 2 */	//MSX-AUDIO‚ÉADPCM—pROM‚Í–³‚¢‚Í‚¸‚È‚Ì‚Å–³Œø‰»
+		case 0x01:	/* Control Register 2 */	//MSX-AUDIOã«ADPCMç”¨ROMã¯ç„¡ã„ã¯ãšãªã®ã§ç„¡åŠ¹åŒ–
 //			sndp->romrambuf  = (sndp->common.regs[1] & 1) ? sndp->rombuf  : sndp->rambuf;
 //			sndp->romrammask = (sndp->common.regs[1] & 1) ? sndp->rommask : sndp->rammask;
 			break;
@@ -309,7 +309,7 @@ static void setinst(YMDELTATPCMSOUND *sndp, Uint32 n, void *p, Uint32 l)
 	}
 
 }
-//‚±‚±‚©‚çƒŒƒWƒXƒ^ƒrƒ…ƒA[İ’è
+//ã“ã“ã‹ã‚‰ãƒ¬ã‚¸ã‚¹ã‚¿ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 static YMDELTATPCMSOUND *sndpr;
 Uint32 (*ioview_ioread_DEV_ADPCM)(Uint32 a);
 Uint32 (*ioview_ioread_DEV_ADPCM2)(Uint32 a);
@@ -319,7 +319,7 @@ static Uint32 ioview_ioread_bf(Uint32 a){
 static Uint32 ioview_ioread_bf2(Uint32 a){
 	if(a<sndpr->ram_size)return sndpr->rambuf[a];else return 0x100;
 }
-//‚±‚±‚Ü‚ÅƒŒƒWƒXƒ^ƒrƒ…ƒA[İ’è
+//ã“ã“ã¾ã§ãƒ¬ã‚¸ã‚¹ã‚¿ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 
 KMIF_SOUND_DEVICE *YMDELTATPCMSoundAlloc(Uint32 ymdeltatpcm_type , Uint8 *pcmbuf)
 {
@@ -383,10 +383,10 @@ KMIF_SOUND_DEVICE *YMDELTATPCMSoundAlloc(Uint32 ymdeltatpcm_type , Uint8 *pcmbuf
 		sndrelease(sndp);
 		return 0;
 	}
-	//‚±‚±‚©‚çƒŒƒWƒXƒ^ƒrƒ…ƒA[İ’è
+	//ã“ã“ã‹ã‚‰ãƒ¬ã‚¸ã‚¹ã‚¿ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 	sndpr = sndp;
 	if(ioview_ioread_DEV_ADPCM ==NULL)ioview_ioread_DEV_ADPCM = ioview_ioread_bf;
 	if(ioview_ioread_DEV_ADPCM2==NULL)ioview_ioread_DEV_ADPCM2= ioview_ioread_bf2;
-	//‚±‚±‚Ü‚ÅƒŒƒWƒXƒ^ƒrƒ…ƒA[İ’è
+	//ã“ã“ã¾ã§ãƒ¬ã‚¸ã‚¹ã‚¿ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 	return &sndp->kmif;
 }

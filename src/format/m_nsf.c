@@ -91,8 +91,8 @@ static Uint32 __fastcall ReadRomF000(void *pNezPlay, Uint32 A)
 	return ((NSFNSF*)((NEZ_PLAY*)pNezPlay)->nsf)->bank[7][A];
 }
 
-// ROM�ɒl���������ނ̂͂ł��Ȃ��͂��ŕs���Ȃ̂����A
-// ��������Ȃ���FDS����NSF�����삵�Ȃ��̂ł��傤���Ȃ��c
+// ROMに値を書き込むのはできないはずで不正なのだが、
+// これをしないとFDS環境のNSFが動作しないのでしょうがない…
 
 static void __fastcall WriteRom8000(void *pNezPlay, Uint32 A, Uint32 V)
 {
@@ -276,7 +276,7 @@ const static NES_RESET_HANDLER nsf_mapper_reset_handler[] = {
 	{ 0,                   0, },
 };
 
-//��������_���v�ݒ�
+//ここからダンプ設定
 static NEZ_PLAY *pNezPlayDump;
 
 static Uint32 dump_MEM_FC_bf(Uint32 menu,unsigned char* mem){
@@ -485,14 +485,14 @@ static Uint32 dump_DEV_OPLL_bf(Uint32 menu,unsigned char* mem){
 	return -2;
 }
 //----------
-//�����܂Ń_���v�ݒ�
+//ここまでダンプ設定
 
 static void __fastcall Terminate(void *pNezPlay)
 {
 	NSFNSF *nsf = (NSFNSF*)((NEZ_PLAY*)pNezPlay)->nsf;
 	if (nsf)
 	{
-		//��������_���v�ݒ�
+		//ここからダンプ設定
 		dump_MEM_FC    = NULL;
 		dump_DEV_2A03  = NULL;
 		dump_DEV_FDS   = NULL;
@@ -501,7 +501,7 @@ static void __fastcall Terminate(void *pNezPlay)
 		dump_DEV_N106  = NULL;
 		dump_DEV_AY8910= NULL;
 		dump_DEV_OPLL  = NULL;
-		//�����܂Ń_���v�ݒ�
+		//ここまでダンプ設定
 		if (nsf->bankbase)
 		{
 			XFREE(nsf->bankbase);
@@ -544,7 +544,7 @@ Uint NSFDeviceInitialize(NEZ_PLAY *pNezPlay)
 	NESResetHandlerInstall(pNezPlay->nrh, nsf_mapper_reset_handler);
 	NESTerminateHandlerInstall(&pNezPlay->nth, nsf_mapper_terminate_handler);
 	NESReadHandlerInstall(pNezPlay, nsf_mapper_read_handler);
-	//FDS�݂̂��T�|�[�g���Ă���ꍇ�̂�8000-DFFF���������݉\-
+	//FDSのみをサポートしている場合のみ8000-DFFFも書き込み可能-
 	if(pNezPlay->song->extdevice == 4){
 		NESWriteHandlerInstall(pNezPlay, nsf_mapper_write_handler_fds);
 	}else{
@@ -572,9 +572,9 @@ Uint NSFDeviceInitialize(NEZ_PLAY *pNezPlay)
 	if (SONGINFO_GetExtendDevice(pNezPlay->song) & EXTSOUND_N106) N106SoundInstall(pNezPlay);
 	if (SONGINFO_GetExtendDevice(pNezPlay->song) & EXTSOUND_FME7) FME7SoundInstall(pNezPlay);
 
-	nsf->counter2002 = 0;	//�b��
+	nsf->counter2002 = 0;	//暫定
 
-	//��������_���v�ݒ�
+	//ここからダンプ設定
 	pNezPlayDump = pNezPlay;
 	dump_MEM_FC = dump_MEM_FC_bf;
 	dump_DEV_2A03 = dump_DEV_2A03_bf;
@@ -584,7 +584,7 @@ Uint NSFDeviceInitialize(NEZ_PLAY *pNezPlay)
 	if (SONGINFO_GetExtendDevice(pNezPlay->song) & EXTSOUND_N106) dump_DEV_N106  = dump_DEV_N106_bf;
 	if (SONGINFO_GetExtendDevice(pNezPlay->song) & EXTSOUND_FME7) dump_DEV_AY8910= dump_DEV_AY8910_bf;
 	if (SONGINFO_GetExtendDevice(pNezPlay->song) & EXTSOUND_VRC7) dump_DEV_OPLL  = dump_DEV_OPLL_bf;
-	//�����܂Ń_���v�ݒ�
+	//ここまでダンプ設定
 	return NESERR_NOERROR;
 }
 

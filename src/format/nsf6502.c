@@ -30,8 +30,8 @@ void NES6502Irq(NEZ_PLAY *pNezPlay)
 }
 
 /*
-//DPCM��IRQ�\��p�B�T���v�����O���[�g�̉e�����󂯂��ɁA
-//�����Ȃ�DPCM-IRQ�����邽�߂ɍ쐬�B 0�Ŋ��荞�ݖ���
+//DPCM??IRQ?\??p?B?T???v?????O???[?g??e?????????A
+//???????DPCM-IRQ???????????B 0??????????
 void NES6502SetIrqCount(NEZ_PLAY *pNezPlay, Int A)
 {
 	((NSFNSF*)pNezPlay->nsf)->dpcmirq_ct = A;
@@ -79,7 +79,7 @@ static Uint NES6502Execute(NEZ_PLAY *pNezPlay, Uint start_cycles, Uint total_cyc
 		//clb = nsf->work6502.clock;
 		K6502_Exec(&nsf->work6502);
 		/*
-		//DPCM�p IRQ�J�E���^
+		//DPCM用 IRQカウンタ
 		if(nsf->dpcmirq_ct>-65536){
 			clb = nsf->work6502.clock - clb;
 			nsf->dpcmirq_ct -= clb;
@@ -87,7 +87,7 @@ static Uint NES6502Execute(NEZ_PLAY *pNezPlay, Uint start_cycles, Uint total_cyc
 			if (nsf->dpcmirq_ct <= 0){
 				nsf->dpcmirq_ct = -65536;
 				nsf->work6502.iRequest |= K6502_INT;
-				((APUSOUND*)nsf->apu)->dpcm.irq_report = 0x80;//���������C���M�����[�����A�������邵���Ȃ� 
+				((APUSOUND*)nsf->apu)->dpcm.irq_report = 0x80;//すっげぇイレギュラーだが、こうするしかない 
 				((APUSOUND*)nsf->apu)->dpcm.key = 0; 
 				((APUSOUND*)nsf->apu)->dpcm.length = 0; 
 			}

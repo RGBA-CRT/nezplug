@@ -118,10 +118,10 @@ static Int32 N106SoundRenderReal2(void* pNezPlay)
 	Int32 outputbuf=0,count=0,accum=0,chpn,real2=((1<<REAL_RENDERS) / n106s->chinuse);
 	Uint32 cyclesspd = n106s->chinuse << CPS_SHIFT;
 
-	//ƒŠƒAƒ‹ƒ‚[ƒh
-	/*”gŒ`‚ÍA1ch‚¸‚Âo—Í‚³‚ê‚éB
-	  ”gŒ`ƒf[ƒ^AŠî€‚Í"8"Bvol‚ğ‰º‚°‚é‚ÆA8‚ÉŒü‚©‚Á‚Ä+-‚ªŒ¸Š‚µ‚Ä‚¢‚­B
-	  ”gŒ`ƒf[ƒ^8‚ğÄ¶’†‚Í‚ü”gƒmƒCƒY‚Ío‚È‚¢B8‚©‚ç‚Ì·‚ÆƒmƒCƒY‚Ì‘å‚«‚³‚Í”ä—á‚·‚éB
+	//ãƒªã‚¢ãƒ«ãƒ¢ãƒ¼ãƒ‰
+	/*æ³¢å½¢ã¯ã€1chãšã¤å‡ºåŠ›ã•ã‚Œã‚‹ã€‚
+	  æ³¢å½¢ãƒ‡ãƒ¼ã‚¿ã€åŸºæº–ã¯"8"ã€‚volã‚’ä¸‹ã’ã‚‹ã¨ã€8ã«å‘ã‹ã£ã¦+-ãŒæ¸›è¡°ã—ã¦ã„ãã€‚
+	  æ³¢å½¢ãƒ‡ãƒ¼ã‚¿8ã‚’å†ç”Ÿä¸­ã¯é«˜å‘¨æ³¢ãƒã‚¤ã‚ºã¯å‡ºãªã„ã€‚8ã‹ã‚‰ã®å·®ã¨ãƒã‚¤ã‚ºã®å¤§ãã•ã¯æ¯”ä¾‹ã™ã‚‹ã€‚
 	*/
 	for (chp = &n106s->ch[0],chpn = 0
 		; chp < &n106s->ch[8]; chp++,chpn++)
@@ -170,7 +170,7 @@ static Int32 N106SoundRenderReal(void* pNezPlay)
 	Int32 outputbuf=0,count=0,accum=0,chpn;
 	Uint32 cyclesspd = n106s->chinuse << CPS_SHIFT;
 
-	//ƒŠƒAƒ‹ƒ‚[ƒh
+	//ãƒªã‚¢ãƒ«ãƒ¢ãƒ¼ãƒ‰
 	for (chp = &n106s->ch[8 - n106s->chinuse],chpn = 8 - n106s->chinuse
 		; chp < &n106s->ch[8]; chp++,chpn++)
 	{
@@ -212,7 +212,7 @@ static Int32 N106SoundRenderNormal(void* pNezPlay)
 
 	Int32 outputbuf=0,count=0,accum=0,chpn;
 	Uint32 cyclesspd = n106s->chinuse << CPS_SHIFT;
-	//]—ˆ‚Ì•û–@
+	//å¾“æ¥ã®æ–¹æ³•
 	for (chp = &n106s->ch[8 - n106s->chinuse],chpn = 8 - n106s->chinuse
 		; chp < &n106s->ch[8]; chp++,chpn++)
 	{
@@ -295,16 +295,16 @@ static void __fastcall N106SoundWriteData(void *pNezPlay, Uint address, Uint val
 		switch (n106s->address & 7)
 		{
 /*
-$78 0-7Fü”g”ƒŒƒWƒXƒ^‰ÁZ’li0-7bitj
-$79 0-7Fü”g”ƒŒƒWƒXƒ^‘ã“ü’li0-7bitj
-$7a 0-7Fü”g”ƒŒƒWƒXƒ^‰ÁZ’li8-15bitj
-$7b 0-7Fü”g”ƒŒƒWƒXƒ^‘ã“ü’li8-15bitj
-$7c 0-1Fü”g”ƒŒƒWƒXƒ^‰ÁZ’li16-17bitj
-$7c 2-7FƒTƒ“ƒvƒ‹”i256-8*nƒTƒ“ƒvƒ‹j
-$7d 0-7Fü”g”ƒŒƒWƒXƒ^‘ã“ü’li16-24bitj
-$7e 0-7FÄ¶”gŒ`ˆÊ’u
-$7f 0-3F‰¹—Ê
-$7f 4-6Fg—pƒ`ƒƒƒ“ƒlƒ‹”i$7F‚Ì‚İB‚Ù‚©‚Ìch‚Å‚ÍˆÓ–¡‚È‚µj			
+$78 0-7ï¼šå‘¨æ³¢æ•°ãƒ¬ã‚¸ã‚¹ã‚¿åŠ ç®—å€¤ï¼ˆ0-7bitï¼‰
+$79 0-7ï¼šå‘¨æ³¢æ•°ãƒ¬ã‚¸ã‚¹ã‚¿ä»£å…¥å€¤ï¼ˆ0-7bitï¼‰
+$7a 0-7ï¼šå‘¨æ³¢æ•°ãƒ¬ã‚¸ã‚¹ã‚¿åŠ ç®—å€¤ï¼ˆ8-15bitï¼‰
+$7b 0-7ï¼šå‘¨æ³¢æ•°ãƒ¬ã‚¸ã‚¹ã‚¿ä»£å…¥å€¤ï¼ˆ8-15bitï¼‰
+$7c 0-1ï¼šå‘¨æ³¢æ•°ãƒ¬ã‚¸ã‚¹ã‚¿åŠ ç®—å€¤ï¼ˆ16-17bitï¼‰
+$7c 2-7ï¼šã‚µãƒ³ãƒ—ãƒ«æ•°ï¼ˆ256-8*nã‚µãƒ³ãƒ—ãƒ«ï¼‰
+$7d 0-7ï¼šå‘¨æ³¢æ•°ãƒ¬ã‚¸ã‚¹ã‚¿ä»£å…¥å€¤ï¼ˆ16-24bitï¼‰
+$7e 0-7ï¼šå†ç”Ÿæ³¢å½¢ä½ç½®
+$7f 0-3ï¼šéŸ³é‡
+$7f 4-6ï¼šä½¿ç”¨ãƒãƒ£ãƒ³ãƒãƒ«æ•°ï¼ˆ$7Fã®ã¿ã€‚ã»ã‹ã®chã§ã¯æ„å‘³ãªã—ï¼‰			
 */
 			case 0:
 				chp->update |= 1;
@@ -389,7 +389,7 @@ static void __fastcall N106SoundReset(void* pNezPlay)
 	int i,j;
 	XMEMSET(n106s, 0, sizeof(N106SOUND));
 
-	//”gŒ`ƒf[ƒ^‚Ì‰Šú‰»
+	//æ³¢å½¢ãƒ‡ãƒ¼ã‚¿ã®åˆæœŸåŒ–
 	for (j = 0; j < 0xff; j++)
 		n106s->tone[j] =  LinearToLog((0) - 0x20);
 
@@ -426,13 +426,13 @@ const static NES_TERMINATE_HANDLER s_n106_terminate_handler[] = {
 	{ 0, }, 
 };
 
-//‚±‚±‚©‚çƒŒƒWƒXƒ^ƒrƒ…ƒA[İ’è
+//ã“ã“ã‹ã‚‰ãƒ¬ã‚¸ã‚¹ã‚¿ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 Uint8 *n106_regdata;
 Uint32 (*ioview_ioread_DEV_N106)(Uint32 a);
 static Uint32 ioview_ioread_bf(Uint32 a){
 	if(a<=0x7f)return n106_regdata[a];else return 0x100;
 }
-//‚±‚±‚Ü‚ÅƒŒƒWƒXƒ^ƒrƒ…ƒA[İ’è
+//ã“ã“ã¾ã§ãƒ¬ã‚¸ã‚¹ã‚¿ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 
 void N106SoundInstall(NEZ_PLAY *pNezPlay)
 {
@@ -450,9 +450,9 @@ void N106SoundInstall(NEZ_PLAY *pNezPlay)
 	NESWriteHandlerInstall(pNezPlay, s_n106_write_handler);
 	NESResetHandlerInstall(pNezPlay->nrh, s_n106_reset_handler);
 
-	//‚±‚±‚©‚çƒŒƒWƒXƒ^ƒrƒ…ƒA[İ’è
+	//ã“ã“ã‹ã‚‰ãƒ¬ã‚¸ã‚¹ã‚¿ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 	n106_regdata = n106s->data;
 	ioview_ioread_DEV_N106 = ioview_ioread_bf;
-	//‚±‚±‚Ü‚ÅƒŒƒWƒXƒ^ƒrƒ…ƒA[İ’è
+	//ã“ã“ã¾ã§ãƒ¬ã‚¸ã‚¹ã‚¿ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 
 }

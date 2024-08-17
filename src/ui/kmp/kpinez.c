@@ -47,7 +47,7 @@ static BOOL GetPrivateProfileBoolEx(LPCTSTR lpAppName, LPCTSTR lpKeyName, BOOL b
 	TCHAR szBuffer[32];
 	if (GetPrivateProfileString(lpAppName, lpKeyName, bDefault ? "True" : "False", szBuffer, 32, lpFileName))
 	{
-		/* æ“ª‚¾‚¯Šm”F */
+		/* å…ˆé ­ã ã‘ç¢ºèª */
 		ret = szBuffer[0] == 'T' || szBuffer[0] == 't';
 	}
 	else

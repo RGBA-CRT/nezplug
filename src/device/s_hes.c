@@ -494,7 +494,7 @@ static void sndrelease(void *ctx)
 
 static void setinst(void *ctx, Uint32 n, void *p, Uint32 l){}
 
-//‚±‚±‚©‚çƒŒƒWƒXƒ^ƒrƒ…ƒA[İ’è
+//ã“ã“ã‹ã‚‰ãƒ¬ã‚¸ã‚¹ã‚¿ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 static HESSOUND *sndpr;
 Uint32 (*ioview_ioread_DEV_HUC6230)(Uint32 a);
 Uint32 pce_ioview_ioread_bf(Uint32 a){
@@ -510,7 +510,7 @@ Uint32 pce_ioview_ioread_bf(Uint32 a){
 	}
 	return 0x100;
 }
-//‚±‚±‚Ü‚ÅƒŒƒWƒXƒ^ƒrƒ…ƒA[İ’è
+//ã“ã“ã¾ã§ãƒ¬ã‚¸ã‚¹ã‚¿ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 
 KMIF_SOUND_DEVICE *HESSoundAlloc(void)
 {
@@ -532,10 +532,10 @@ KMIF_SOUND_DEVICE *HESSoundAlloc(void)
 		sndrelease(sndp);
 		return 0;
 	}
-	//‚±‚±‚©‚çƒŒƒWƒXƒ^ƒrƒ…ƒA[İ’è
+	//ã“ã“ã‹ã‚‰ãƒ¬ã‚¸ã‚¹ã‚¿ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 	sndpr = sndp;
 	ioview_ioread_DEV_HUC6230 = pce_ioview_ioread_bf;
-	//‚±‚±‚Ü‚ÅƒŒƒWƒXƒ^ƒrƒ…ƒA[İ’è
+	//ã“ã“ã¾ã§ãƒ¬ã‚¸ã‚¹ã‚¿ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 
 	return &sndp->kmif;
 }

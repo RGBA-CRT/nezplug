@@ -550,9 +550,9 @@ void ConfigNezSequencer(HWND hwndParent)
 
 int infoNezBox(char *fn, HWND hwndParent)
 {
-	//ƒtƒ@ƒCƒ‹î•ñŒÄ‚Ño‚µ
+	//ãƒ•ã‚¡ã‚¤ãƒ«æƒ…å ±å‘¼ã³å‡ºã—
 	//instance = setting.hDllInstance;
-	//ƒtƒ@ƒCƒ‹‚ğƒ[ƒh‚µ‚Ä‚·‚®”pŠü = ƒtƒ@ƒCƒ‹î•ñ‚ÌŠi”[
+	//ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ­ãƒ¼ãƒ‰ã—ã¦ã™ãå»ƒæ£„ = ãƒ•ã‚¡ã‚¤ãƒ«æƒ…å ±ã®æ ¼ç´
 	if(memview_memread == NULL)Term(loadNezFile(fn));
 	NEZFileInfoDlg(setting.hDllInstance, hwndParent);
 	return 0;
@@ -591,7 +591,7 @@ static int isOurList(char *fn, char *us, char *ls)
 static int isOurLists(char *fn)
 {
 	int p;
-	/* ::NEZƒvƒŒƒCƒŠƒXƒg‚Íí‚É§Œä‚ğ“¾‚é */
+	/* ::NEZãƒ—ãƒ¬ã‚¤ãƒªã‚¹ãƒˆã¯å¸¸ã«åˆ¶å¾¡ã‚’å¾—ã‚‹ */
 	if (!!(p = isOurList(fn, "NEZ", "nez"))) return p;
 	if (!setting.disable_nsf && !!(p = isOurList(fn, "NSF", "nsf"))) return p;
 	if (!setting.disable_kss && !!(p = isOurList(fn, "KSS", "kss"))) return p;
@@ -1193,7 +1193,7 @@ SEQUENCER *loadNezFile(char *fn)
 	p->loopc = 0;
 	p->isplaying = 0;
 
-	if (playtime == 0) playtime = setting.playtime;	/* 5•ª‚ğ‰¼’è */
+	if (playtime == 0) playtime = setting.playtime;	/* 5åˆ†ã‚’ä»®å®š */
 
 	p->playtime = MulDiv(playtime, setting.frequency, 1000);
 	p->looptime = MulDiv(looptime, setting.frequency, 1000);
@@ -1237,7 +1237,7 @@ char *StartWinamp(void)
 
 	setting.lpSection = "NEZplug";
 
-	/* ƒGƒ~ƒ…ƒŒ[ƒ^‚ÌŠÖ˜A•t‚¯”j‰ó–h~(‰SÒ—p) */
+	/* ã‚¨ãƒŸãƒ¥ãƒ¬ãƒ¼ã‚¿ã®é–¢é€£ä»˜ã‘ç ´å£Šé˜²æ­¢(åˆå¿ƒè€…ç”¨) */
 	setting.disable_pceext = GetSettingInt("DisablePCEExtension", 1);
 	SetSettingInt("DisablePCEExtension", setting.disable_pceext);
 

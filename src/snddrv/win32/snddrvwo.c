@@ -26,7 +26,7 @@ typedef struct {
 	unsigned blocklen;
 	unsigned isplaying;
 	unsigned ispause;
-	unsigned isbuffering;// ƒ}ƒ‹ƒ`ƒRƒA‘ÎôBƒZƒ}ƒtƒHc‚ÆŒ¾‚¤‚Ì‚©‚ÈH
+	unsigned isbuffering;// ãƒžãƒ«ãƒã‚³ã‚¢å¯¾ç­–ã€‚ã‚»ãƒžãƒ•ã‚©â€¦ã¨è¨€ã†ã®ã‹ãªï¼Ÿ
 	WAVEHDR *pawh;
 } SOUNDDEVICE_WO;
 
@@ -63,7 +63,7 @@ static void Term(struct SOUNDDEVICE_TAG *psd)
 	unsigned i;
 	SD->isplaying = 0;
 
-	while(SD->isbuffering)Sleep(10);// ƒ}ƒ‹ƒ`ƒRƒA‘Îô
+	while(SD->isbuffering)Sleep(10);// ãƒžãƒ«ãƒã‚³ã‚¢å¯¾ç­–
 
 	if (SD->hwo)
 	{
@@ -120,7 +120,7 @@ static void CALLBACK WaveOutProc(HWAVEOUT hwo, UINT uMsg, DWORD dwInstance, DWOR
 	SD->isbuffering++;
 	if (uMsg == MM_WOM_DONE)
 	{
-		if (SD->isplaying){//Write(SD);‚¾‚¯‚ÉˆÍ‚ñ‚Å‚¢‚½‚Ì‚ð‘S•”ˆÍ‚ñ‚¾‚çƒtƒŠ[ƒY‚ª’¼‚Á‚½IH
+		if (SD->isplaying){//Write(SD);ã ã‘ã«å›²ã‚“ã§ã„ãŸã®ã‚’å…¨éƒ¨å›²ã‚“ã ã‚‰ãƒ•ãƒªãƒ¼ã‚ºãŒç›´ã£ãŸï¼ï¼Ÿ
 			WAVEHDR *pwh = (WAVEHDR *)dwParam1;
 			waveOutUnprepareHeader(SD->hwo, pwh, sizeof(WAVEHDR));
 			pwh->dwFlags = 0;

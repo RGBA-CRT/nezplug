@@ -104,7 +104,7 @@ LRESULT CALLBACK IOViewDialogProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM
 		CheckRadioButton(hDlg,IDC_SPEED1,IDC_SPEED5,IDC_SPEED3);
 		mempos=0;
 		SetScrollPos(GetDlgItem(hDlg,IDC_MEMSCR),SB_CTL,0,TRUE);
-		//�R���{�{�b�N�X�A�C�e���̒ǉ�
+		//コンボボックスアイテムの追加
 		for(loop=0;loop<DEV_MAX_;loop++)
 			SendMessage(GetDlgItem(hDlg,IDC_DEVICE), CB_ADDSTRING, loop, (LPARAM)devstring[loop]);
 		SendMessage(GetDlgItem(hDlg,IDC_DEVICE), CB_SETCURSEL, 0, 0);
@@ -181,28 +181,28 @@ LRESULT CALLBACK IOViewDialogProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM
 			mempos=GetScrollPos(GetDlgItem(hDlg,IDC_MEMSCR),SB_CTL)<<4;
 
 			switch(nScrollCode){
-				case SB_LINEDOWN:		//1�s���փX�N���[��
+				case SB_LINEDOWN:		//1行下へスクロール
 					nPos = (mempos>>4) + 1;
 					break;
-				case SB_LINEUP:			//1�s��փX�N���[��
+				case SB_LINEUP:			//1行上へスクロール
 					nPos = (mempos>>4) - 1;
 					break;
-				case SB_PAGEDOWN:		//1�y�[�W���փX�N���[��
+				case SB_PAGEDOWN:		//1ページ下へスクロール
 					nPos = (mempos>>4) + 16;
 					break;
-				case SB_PAGEUP:			//1�y�[�W��փX�N���[��
+				case SB_PAGEUP:			//1ページ上へスクロール
 					nPos = (mempos>>4) - 16;
 					break;
-				case SB_BOTTOM:			//��ԉ��܂ŃX�N���[��
+				case SB_BOTTOM:			//一番下までスクロール
 					nPos = (MEM_MAX>>4)-0xf;
 					break;
-				case SB_TOP:			//��ԏ�܂ŃX�N���[��
+				case SB_TOP:			//一番上までスクロール
 					nPos = 0;
 					break;
-				case SB_THUMBPOSITION:	//��Έʒu�փX�N���[��
+				case SB_THUMBPOSITION:	//絶対位置へスクロール
 				case SB_THUMBTRACK:
 					break;
-				case SB_ENDSCROLL:		//�X�N���[���I��
+				case SB_ENDSCROLL:		//スクロール終了
 				default:
 					return TRUE;
 			}

@@ -173,7 +173,7 @@ const static NES_VOLUME_HANDLER s_vrc6_volume_handler[] = {
 static void __fastcall VRC6SoundWrite9000(void *pNezPlay, Uint address, Uint value)
 {
 	//FILE *f;
-	if(address >=0x9000 && address <= 0x9002){//‚È‚µ‚Ä9010E9030‘‚¢‚½‚Æ‚«‚à‚±‚±’Ê‚Á‚Ä‚ñ‚¾‚×H
+	if(address >=0x9000 && address <= 0x9002){//ãªã—ã¦9010ãƒ»9030æ›¸ã„ãŸã¨ãã‚‚ã“ã“é€šã£ã¦ã‚“ã ã¹ï¼Ÿ
 		VRC6SOUND *vrc6s = ((NSFNSF*)((NEZ_PLAY*)pNezPlay)->nsf)->vrc6s;
 		vrc6s->square[0].regs[address & 3] = (Uint8)value;
 		vrc6s->square[0].update |= 1 << (address & 3); 
@@ -257,7 +257,7 @@ const static NES_TERMINATE_HANDLER s_vrc6_terminate_handler[] = {
 	{ 0, }, 
 };
 
-//‚±‚±‚©‚çƒŒƒWƒXƒ^ƒrƒ…ƒA[İ’è
+//ã“ã“ã‹ã‚‰ãƒ¬ã‚¸ã‚¹ã‚¿ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 Uint8 *vrc6_regdata;
 Uint8 *vrc6_regdata2;
 Uint8 *vrc6_regdata3;
@@ -267,7 +267,7 @@ static Uint32 ioview_ioread_bf(Uint32 a){
 	if(a>=0x10 && a<=0x12)return vrc6_regdata2[a-0x10];else
 	if(a>=0x20 && a<=0x22)return vrc6_regdata3[a-0x20];else return 0x100;
 }
-//‚±‚±‚Ü‚ÅƒŒƒWƒXƒ^ƒrƒ…ƒA[İ’è
+//ã“ã“ã¾ã§ãƒ¬ã‚¸ã‚¹ã‚¿ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 
 void VRC6SoundInstall(NEZ_PLAY *pNezPlay)
 {
@@ -284,10 +284,10 @@ void VRC6SoundInstall(NEZ_PLAY *pNezPlay)
 	NESWriteHandlerInstall(pNezPlay, s_vrc6_write_handler);
 	NESResetHandlerInstall(pNezPlay->nrh, s_vrc6_reset_handler);
 
-	//‚±‚±‚©‚çƒŒƒWƒXƒ^ƒrƒ…ƒA[İ’è
+	//ã“ã“ã‹ã‚‰ãƒ¬ã‚¸ã‚¹ã‚¿ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 	vrc6_regdata  = vrc6s->square[0].regs;
 	vrc6_regdata2 = vrc6s->square[1].regs;
 	vrc6_regdata3 = vrc6s->saw.regs;
 	ioview_ioread_DEV_VRC6 = ioview_ioread_bf;
-	//‚±‚±‚Ü‚ÅƒŒƒWƒXƒ^ƒrƒ…ƒA[İ’è
+	//ã“ã“ã¾ã§ãƒ¬ã‚¸ã‚¹ã‚¿ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 }

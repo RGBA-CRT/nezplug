@@ -118,7 +118,7 @@ unsigned NEZ_extract(char *lpszSrcFile, void **ppbuf)
 		bufp = malloc(s);
 		if (!bufp) break;
 		if (s != fread(bufp, 1, s, fp)) break;
-		fclose(fp); fp = 0;	/* îOÇÃÇΩÇﬂ */
+		fclose(fp); fp = 0;	/* Âøµ„ÅÆ„Åü„ÇÅ */
 		u = NEZ_extractMem(bufp, s, ppbuf);
 		if (u)
 		{

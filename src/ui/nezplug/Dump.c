@@ -289,10 +289,10 @@ unsigned char ffile[400];
 unsigned char dfile[400];
 
 #define DEVICE(x,y) case x: return y != NULL ? y(dumpnum,(unsigned char *)mem) : -2;break;
-/* return’l
-   0ˆÈã:ƒ_ƒ“ƒv³íI—¹iƒoƒCƒiƒŠ‚Åo—Í‚³‚ê‚½Bj
-   -1   :ƒ_ƒ“ƒv³íI—¹iƒeƒLƒXƒg‚Åo—Í‚³‚ê‚½Bj
-   -2   :•Ï‰»‚È‚µ
+/* returnå€¤
+   0ä»¥ä¸Š:ãƒ€ãƒ³ãƒ—æ­£å¸¸çµ‚äº†ï¼ˆãƒã‚¤ãƒŠãƒªã§å‡ºåŠ›ã•ã‚ŒãŸã€‚ï¼‰
+   -1   :ãƒ€ãƒ³ãƒ—æ­£å¸¸çµ‚äº†ï¼ˆãƒ†ã‚­ã‚¹ãƒˆã§å‡ºåŠ›ã•ã‚ŒãŸã€‚ï¼‰
+   -2   :å¤‰åŒ–ãªã—
 */
 int _dump(int devicenum, int dumpnum){
 	switch(devicenum){
@@ -321,10 +321,10 @@ void setmem(HWND hDlg, int ret){
 	int a,b;
 	unsigned char *ptxt = txt;
 	if(!IsDlgButtonChecked(hDlg,IDC_DUMPFORMAT3)){
-		//ƒeƒLƒXƒgo—Í‚Ìê‡
-		if(ret>=0){//ƒoƒCƒiƒŠo—Í‚³‚ê‚½ê‡
+		//ãƒ†ã‚­ã‚¹ãƒˆå‡ºåŠ›ã®å ´åˆ
+		if(ret>=0){//ãƒã‚¤ãƒŠãƒªå‡ºåŠ›ã•ã‚ŒãŸå ´åˆ
 			if(IsDlgButtonChecked(hDlg,IDC_DUMPFORMAT1)){
-				//HEX•Û‘¶
+				//HEXä¿å­˜
 				memset(txt,0,sizeof(txt));
 				for(a=0;a<ret;a++){
 					*ptxt = hexstr[mem[a]>>4];
@@ -342,7 +342,7 @@ void setmem(HWND hDlg, int ret){
 				}
 				SetWindowText(GetDlgItem(hDlg,IDC_DUMPTEXT),txt);
 			}else if(IsDlgButtonChecked(hDlg,IDC_DUMPFORMAT2)){
-				//HEX•Û‘¶(ƒAƒhƒŒƒX•t‚«)
+				//HEXä¿å­˜(ã‚¢ãƒ‰ãƒ¬ã‚¹ä»˜ã)
 				memset(txt,0,sizeof(txt));
 				for(a=0;a<ret;a++){
 					if((a&0xf)==0x0){
@@ -375,7 +375,7 @@ void setmem(HWND hDlg, int ret){
 			SetWindowText(GetDlgItem(hDlg,IDC_DUMPTEXT),txt);
 		}
 	}else{
-		//ƒtƒ@ƒCƒ‹o—Í‚Ìê‡
+		//ãƒ•ã‚¡ã‚¤ãƒ«å‡ºåŠ›ã®å ´åˆ
 		if(ret>-2){
 			OPENFILENAME ofn;
 			memset(&ofn,0,sizeof(ofn));

@@ -42,7 +42,7 @@
 #define FM_FREQ 44100.0
 #define VOLUME_BITS 0
 
-//1‚É‚·‚é‚ÆAƒ[ƒpƒXƒtƒBƒ‹ƒ^‚ª‚©‚©‚é‚ªAd‚·‚¬‚Äg‚¢•¨‚É‚È‚è‚Ü‚Ö‚ñB
+//1ã«ã™ã‚‹ã¨ã€ãƒ­ãƒ¼ãƒ‘ã‚¹ãƒ•ã‚£ãƒ«ã‚¿ãŒã‹ã‹ã‚‹ãŒã€é‡ã™ãã¦ä½¿ã„ç‰©ã«ãªã‚Šã¾ã¸ã‚“ã€‚
 #define LOWPASS_FILTER 0
 
 
@@ -217,10 +217,10 @@ static Uint8 romtone[3][16 * 19] =
 #include "ill/i_fmpac.h"
 	},
 	{
-#include "ill/i_fmunit.h" // ©SMS‚ÌFM‰¹Œ¹‚ÍFM-PAC‚Æ“¯‚¶uYM2413v‚ğg‚Á‚Ä‚é‚Ì‚Å‚ ‚ñ‚Ü‚èˆÓ–¡‚ª–³‚¢
+#include "ill/i_fmunit.h" // â†SMSã®FMéŸ³æºã¯FM-PACã¨åŒã˜ã€ŒYM2413ã€ã‚’ä½¿ã£ã¦ã‚‹ã®ã§ã‚ã‚“ã¾ã‚Šæ„å‘³ãŒç„¡ã„
 	},
 	{
-#include "ill/i_vrc7.h" // ©VRC7‚Í–¾‚ç‚©‚É‰¹F‚ªˆá‚¤Bƒ‰ƒOƒ‰ƒ“ƒWƒ…ƒ|ƒCƒ“ƒg‚ğYM2413‚Å–Â‚ç‚µ‚½‚çAƒx[ƒX‰¹‚ªc”O‚È‰¹F‚É‚È‚Á‚½B
+#include "ill/i_vrc7.h" // â†VRC7ã¯æ˜ã‚‰ã‹ã«éŸ³è‰²ãŒé•ã†ã€‚ãƒ©ã‚°ãƒ©ãƒ³ã‚¸ãƒ¥ãƒã‚¤ãƒ³ãƒˆã‚’YM2413ã§é³´ã‚‰ã—ãŸã‚‰ã€ãƒ™ãƒ¼ã‚¹éŸ³ãŒæ®‹å¿µãªéŸ³è‰²ã«ãªã£ãŸã€‚
 	},
 };
 
@@ -1511,7 +1511,7 @@ static void sndrelease(OPLSOUND *sndp)
 	}
 }
 
-//‚±‚±‚©‚çƒŒƒWƒXƒ^ƒrƒ…ƒA[İ’è
+//ã“ã“ã‹ã‚‰ãƒ¬ã‚¸ã‚¹ã‚¿ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 static Uint8 *regdata;
 static Uint8 *regdata2;
 Uint32 (*ioview_ioread_DEV_OPL)(Uint32 a);
@@ -1522,7 +1522,7 @@ static Uint32 ioview_ioread_bf(Uint32 a){
 static Uint32 ioview_ioread_bf2(Uint32 a){
 	if(a<0x40)return regdata2[a];else return 0x100;
 }
-//‚±‚±‚Ü‚ÅƒŒƒWƒXƒ^ƒrƒ…ƒA[İ’è
+//ã“ã“ã¾ã§ãƒ¬ã‚¸ã‚¹ã‚¿ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 
 KMIF_SOUND_DEVICE *OPLSoundAlloc(Uint32 opl_type)
 {
@@ -1563,7 +1563,7 @@ KMIF_SOUND_DEVICE *OPLSoundAlloc(Uint32 opl_type)
 			case OPL_TYPE_VRC7:
 				opllsetinst(sndp, 0, romtone[2], 16 * 19);//VRC7
 				break;
-		}												  //romtone[1]‚ğg‚¤•K—v‘S‘R‚È‚µ
+		}												  //romtone[1]ã‚’ä½¿ã†å¿…è¦å…¨ç„¶ãªã—
 	}
 	sndp->logtbl = LogTableAddRef();
 	sndp->opltbl = OplTableAddRef();
@@ -1572,7 +1572,7 @@ KMIF_SOUND_DEVICE *OPLSoundAlloc(Uint32 opl_type)
 		sndrelease(sndp);
 		return 0;
 	}
-	//‚±‚±‚©‚çƒŒƒWƒXƒ^ƒrƒ…ƒA[İ’è
+	//ã“ã“ã‹ã‚‰ãƒ¬ã‚¸ã‚¹ã‚¿ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 	if (sndp->opl_type & OPL_TYPE_OPL){
 		regdata = sndp->oplregs;
 		ioview_ioread_DEV_OPL = ioview_ioread_bf;
@@ -1580,6 +1580,6 @@ KMIF_SOUND_DEVICE *OPLSoundAlloc(Uint32 opl_type)
 		regdata2 = sndp->opllregs;
 		ioview_ioread_DEV_OPLL = ioview_ioread_bf2;
 	}
-	//‚±‚±‚Ü‚ÅƒŒƒWƒXƒ^ƒrƒ…ƒA[İ’è
+	//ã“ã“ã¾ã§ãƒ¬ã‚¸ã‚¹ã‚¿ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 	return &sndp->kmif;
 }

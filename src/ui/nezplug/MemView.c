@@ -3,7 +3,7 @@
 
 #include "MemView.h"
 
-#define MEM_MAX 0xffff //©‚Ç‚¤‚¹‘S•”FFFFH
+#define MEM_MAX 0xffff //â†ã©ã†ã›å…¨éƒ¨FFFFH
 
 extern int (*memview_memread)(int a);
 extern int MEM_IO,MEM_RAM,MEM_ROM;
@@ -125,37 +125,37 @@ LRESULT CALLBACK MemViewDialogProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 			mempos=GetScrollPos(GetDlgItem(hDlg,IDC_MEMSCR),SB_CTL)<<4;
 
 			switch(nScrollCode){
-				case SB_LINEDOWN:		//1s‰º‚ÖƒXƒNƒ[ƒ‹
+				case SB_LINEDOWN:		//1è¡Œä¸‹ã¸ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«
 					nPos = (mempos>>4) + 1;
 					break;
-				case SB_LINEUP:			//1sã‚ÖƒXƒNƒ[ƒ‹
+				case SB_LINEUP:			//1è¡Œä¸Šã¸ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«
 					nPos = (mempos>>4) - 1;
 					break;
-				case SB_PAGEDOWN:		//1ƒy[ƒW‰º‚ÖƒXƒNƒ[ƒ‹
+				case SB_PAGEDOWN:		//1ãƒšãƒ¼ã‚¸ä¸‹ã¸ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«
 					nPos = (mempos>>4) + 16;
 					break;
-				case SB_PAGEUP:			//1ƒy[ƒWã‚ÖƒXƒNƒ[ƒ‹
+				case SB_PAGEUP:			//1ãƒšãƒ¼ã‚¸ä¸Šã¸ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«
 					nPos = (mempos>>4) - 16;
 					break;
-				case SB_BOTTOM:			//ˆê”Ô‰º‚Ü‚ÅƒXƒNƒ[ƒ‹
+				case SB_BOTTOM:			//ä¸€ç•ªä¸‹ã¾ã§ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«
 					nPos = (MEM_MAX>>4)-0xf;
 					break;
-				case SB_TOP:			//ˆê”Ôã‚Ü‚ÅƒXƒNƒ[ƒ‹
+				case SB_TOP:			//ä¸€ç•ªä¸Šã¾ã§ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«
 					nPos = 0;
 					break;
-				case SB_THUMBPOSITION:	//â‘ÎˆÊ’u‚ÖƒXƒNƒ[ƒ‹
+				case SB_THUMBPOSITION:	//çµ¶å¯¾ä½ç½®ã¸ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«
 				case SB_THUMBTRACK:
 					break;
-				case IDC_ADR_IO|0x8000:		//ƒAƒhƒŒƒXw’èƒ{ƒ^ƒ“iIOj
+				case IDC_ADR_IO|0x8000:		//ã‚¢ãƒ‰ãƒ¬ã‚¹æŒ‡å®šãƒœã‚¿ãƒ³ï¼ˆIOï¼‰
 					nPos = MEM_IO>>4;
 					break;
-				case IDC_ADR_RAM|0x8000:		//ƒAƒhƒŒƒXw’èƒ{ƒ^ƒ“iRAMj
+				case IDC_ADR_RAM|0x8000:		//ã‚¢ãƒ‰ãƒ¬ã‚¹æŒ‡å®šãƒœã‚¿ãƒ³ï¼ˆRAMï¼‰
 					nPos = MEM_RAM>>4;
 					break;
-				case IDC_ADR_ROM|0x8000:		//ƒAƒhƒŒƒXw’èƒ{ƒ^ƒ“iROMj
+				case IDC_ADR_ROM|0x8000:		//ã‚¢ãƒ‰ãƒ¬ã‚¹æŒ‡å®šãƒœã‚¿ãƒ³ï¼ˆROMï¼‰
 					nPos = MEM_ROM>>4;
 					break;
-				case SB_ENDSCROLL:		//ƒXƒNƒ[ƒ‹I—¹
+				case SB_ENDSCROLL:		//ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«çµ‚äº†
 				default:
 					return TRUE;
 			}

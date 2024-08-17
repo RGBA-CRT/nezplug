@@ -181,7 +181,7 @@ static void sndwrite(void *ctx, Uint32 a, Uint32 v)
 	{
 		Uint32 ch = (sndp->common.first >> 5) & 3;
 		if (sndp->type == SNG_TYPE_SN76489AN) {
-			//0x000‚ªˆê”Ô’á‚­A0x001‚ªˆê”Ô‚‚¢B
+			//0x000ãŒä¸€ç•ªä½Žãã€0x001ãŒä¸€ç•ªé«˜ã„ã€‚
 			sndp->square[ch].spd = (((((v & 0x3F) << 4) + (sndp->common.first & 0xF)) + 0x3ff)&0x3ff) +1;
 		} else {
 			sndp->square[ch].spd = (((v & 0x3F) << 4) + (sndp->common.first & 0xF));
@@ -210,7 +210,7 @@ static void sndwrite(void *ctx, Uint32 a, Uint32 v)
 				sndp->square[ch].vol = voltbl[v & 0xF];
 				break;
 			case 0xE0:
-				//ŽèŽ‚¿‚ÌSN76489AN‚ªA‚±‚±‚É‘‚¢‚½‚çƒŠƒZƒbƒg‚µ‚Ä‚½‚Ì‚Å
+				//æ‰‹æŒã¡ã®SN76489ANãŒã€ã“ã“ã«æ›¸ã„ãŸã‚‰ãƒªã‚»ãƒƒãƒˆã—ã¦ãŸã®ã§
 				sndp->noise.rng = sndp->type == SNG_TYPE_SN76489AN ? SN76489AN_PRESET : SG76489_PRESET;
 				sndp->noise.mode = v & 0x3;
 				sndp->noise.fb = (v & 4) ? FB_WNOISE : FB_PNOISE;
@@ -266,7 +266,7 @@ static void sndrelease(void *ctx)
 
 static void setinst(void *ctx, Uint32 n, void *p, Uint32 l){}
 
-//‚±‚±‚©‚çƒŒƒWƒXƒ^ƒrƒ…ƒA[Ý’è
+//ã“ã“ã‹ã‚‰ãƒ¬ã‚¸ã‚¹ã‚¿ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 static Uint8 *regdata;
 Uint32 (*ioview_ioread_DEV_SN76489)(Uint32 a);
 static Uint32 ioview_ioread_bf(Uint32 a){
@@ -278,7 +278,7 @@ static Uint32 ioview_ioread_bf(Uint32 a){
 	}
 	return 0x100;
 }
-//‚±‚±‚Ü‚ÅƒŒƒWƒXƒ^ƒrƒ…ƒA[Ý’è
+//ã“ã“ã¾ã§ãƒ¬ã‚¸ã‚¹ã‚¿ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 
 KMIF_SOUND_DEVICE *SNGSoundAlloc(Uint32 sng_type)
 {
@@ -301,9 +301,9 @@ KMIF_SOUND_DEVICE *SNGSoundAlloc(Uint32 sng_type)
 		sndrelease(sndp);
 		return 0;
 	}
-	//‚±‚±‚©‚çƒŒƒWƒXƒ^ƒrƒ…ƒA[Ý’è
+	//ã“ã“ã‹ã‚‰ãƒ¬ã‚¸ã‚¹ã‚¿ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 	regdata = sndp->regs;
 	ioview_ioread_DEV_SN76489 = ioview_ioread_bf;
-	//‚±‚±‚Ü‚ÅƒŒƒWƒXƒ^ƒrƒ…ƒA[Ý’è
+	//ã“ã“ã¾ã§ãƒ¬ã‚¸ã‚¹ã‚¿ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 	return &sndp->kmif;
 }

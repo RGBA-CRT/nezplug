@@ -345,16 +345,16 @@ static void vsync_event(KMEVENT *event, KMEVENT_ITEM_ID curid, KSSSEQ *THIS_)
 	if (THIS_->ctx.regs8[REGID_HALTED]) play_setup(THIS_, THIS_->playaddr);
 }
 
-//‚±‚±‚©‚çƒƒ‚ƒŠ[ƒrƒ…ƒA[Ý’è
+//ã“ã“ã‹ã‚‰ãƒ¡ãƒ¢ãƒªãƒ¼ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 static Uint32 (*memview_memread)(Uint32 a);
 static KSSSEQ* memview_context;
 static int MEM_MAX,MEM_IO,MEM_RAM,MEM_ROM;
 Uint32 memview_memread_kss(Uint32 a){
 	return read_event(memview_context,a);
 }
-//‚±‚±‚Ü‚Åƒƒ‚ƒŠ[ƒrƒ…ƒA[Ý’è
+//ã“ã“ã¾ã§ãƒ¡ãƒ¢ãƒªãƒ¼ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 
-//‚±‚±‚©‚çƒ_ƒ“ƒvÝ’è
+//ã“ã“ã‹ã‚‰ãƒ€ãƒ³ãƒ—è¨­å®š
 static NEZ_PLAY *pNezPlayDump;
 static Uint32 dump_MEM_MSX_bf(Uint32 menu,unsigned char* mem){
 	int i;
@@ -569,14 +569,14 @@ static void reset(NEZ_PLAY *pNezPlay)
 	}
 	THIS_->total_cycles = 0;
 
-	//‚±‚±‚©‚çƒƒ‚ƒŠ[ƒrƒ…ƒA[Ý’è
+	//ã“ã“ã‹ã‚‰ãƒ¡ãƒ¢ãƒªãƒ¼ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 	memview_context = THIS_;
 	MEM_MAX=0xffff;
 	MEM_IO =0x0000;
 	MEM_RAM=0xC000;
 	MEM_ROM=0x8000;
 	memview_memread = memview_memread_kss;
-	//‚±‚±‚Ü‚Åƒƒ‚ƒŠ[ƒrƒ…ƒA[Ý’è
+	//ã“ã“ã¾ã§ãƒ¡ãƒ¢ãƒªãƒ¼ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 
 }
 
@@ -584,7 +584,7 @@ static void terminate(KSSSEQ *THIS_)
 {
 	Uint32 i;
 
-	//‚±‚±‚©‚çƒ_ƒ“ƒvÝ’è
+	//ã“ã“ã‹ã‚‰ãƒ€ãƒ³ãƒ—è¨­å®š
 	dump_MEM_MSX     = NULL;
 	dump_DEV_AY8910  = NULL;
 	dump_DEV_SN76489 = NULL;
@@ -592,7 +592,7 @@ static void terminate(KSSSEQ *THIS_)
 	dump_DEV_OPL     = NULL;
 	dump_DEV_OPLL    = NULL;
 	dump_DEV_ADPCM   = NULL;
-	//‚±‚±‚Ü‚Åƒ_ƒ“ƒvÝ’è
+	//ã“ã“ã¾ã§ãƒ€ãƒ³ãƒ—è¨­å®š
 	for (i = 0; i < SND_MAX; i++)
 	{
 		if (THIS_->sndp[i]) THIS_->sndp[i]->release(THIS_->sndp[i]->ctx);
@@ -724,9 +724,9 @@ Extra Device : %s%s%s%s%s"
 		THIS_->bankmode = KSS_BANK_OFF;
 	}
 
-	//‚±‚±‚©‚çƒ_ƒ“ƒvÝ’è
+	//ã“ã“ã‹ã‚‰ãƒ€ãƒ³ãƒ—è¨­å®š
 	dump_MEM_MSX     = dump_MEM_MSX_bf;
-	//‚±‚±‚Ü‚Åƒ_ƒ“ƒvÝ’è
+	//ã“ã“ã¾ã§ãƒ€ãƒ³ãƒ—è¨­å®š
 
 
 	THIS_->majutushimode = 0;
@@ -737,26 +737,26 @@ Extra Device : %s%s%s%s%s"
 		{
 			THIS_->sndp[SND_SNG] = SNGSoundAlloc(SNG_TYPE_GAMEGEAR);
 			SONGINFO_SetChannel(pNezPlay->song, 2);
-			//‚±‚±‚©‚çƒ_ƒ“ƒvÝ’è
+			//ã“ã“ã‹ã‚‰ãƒ€ãƒ³ãƒ—è¨­å®š
 			dump_DEV_SN76489 = dump_DEV_SN76489_bf2;
-			//‚±‚±‚Ü‚Åƒ_ƒ“ƒvÝ’è
+			//ã“ã“ã¾ã§ãƒ€ãƒ³ãƒ—è¨­å®š
 		}
 		else
 		{
 			THIS_->sndp[SND_SNG] = SNGSoundAlloc(SNG_TYPE_SEGAMKIII);
 			SONGINFO_SetChannel(pNezPlay->song, 1);
-			//‚±‚±‚©‚çƒ_ƒ“ƒvÝ’è
+			//ã“ã“ã‹ã‚‰ãƒ€ãƒ³ãƒ—è¨­å®š
 			dump_DEV_SN76489 = dump_DEV_SN76489_bf;
-			//‚±‚±‚Ü‚Åƒ_ƒ“ƒvÝ’è
+			//ã“ã“ã¾ã§ãƒ€ãƒ³ãƒ—è¨­å®š
 		}
 		if (!THIS_->sndp[SND_SNG]) return NESERR_SHORTOFMEMORY;
 		if (THIS_->extdevice & EXTDEVICE_FMUNIT)
 		{
 			THIS_->sndp[SND_FMUNIT] = OPLSoundAlloc(OPL_TYPE_SMSFMUNIT);
 			if (!THIS_->sndp[SND_FMUNIT]) return NESERR_SHORTOFMEMORY;
-			//‚±‚±‚©‚çƒ_ƒ“ƒvÝ’è
+			//ã“ã“ã‹ã‚‰ãƒ€ãƒ³ãƒ—è¨­å®š
 			dump_DEV_OPLL = dump_DEV_OPLL_bf;
-			//‚±‚±‚Ü‚Åƒ_ƒ“ƒvÝ’è
+			//ã“ã“ã¾ã§ãƒ€ãƒ³ãƒ—è¨­å®š
 		}
 		if (THIS_->extdevice & (EXTDEVICE_EXRAM | EXTDEVICE_GGRAM))
 		{
@@ -795,26 +795,26 @@ Extra Device : %s%s%s%s%s"
 			THIS_->sndp[SND_PSG] = PSGSoundAlloc(PSG_TYPE_AY_3_8910);
 		}
 		if (!THIS_->sndp[SND_PSG]) return NESERR_SHORTOFMEMORY;
-		//‚±‚±‚©‚çƒ_ƒ“ƒvÝ’è
+		//ã“ã“ã‹ã‚‰ãƒ€ãƒ³ãƒ—è¨­å®š
 		dump_DEV_AY8910 = dump_DEV_AY8910_bf;
-		//‚±‚±‚Ü‚Åƒ_ƒ“ƒvÝ’è
+		//ã“ã“ã¾ã§ãƒ€ãƒ³ãƒ—è¨­å®š
 		if (THIS_->extdevice & EXTDEVICE_MSXMUSIC)
 		{
 			THIS_->sndp[SND_MSXMUSIC] = OPLSoundAlloc(OPL_TYPE_MSXMUSIC);
 			if (!THIS_->sndp[SND_MSXMUSIC]) return NESERR_SHORTOFMEMORY;
-			//‚±‚±‚©‚çƒ_ƒ“ƒvÝ’è
+			//ã“ã“ã‹ã‚‰ãƒ€ãƒ³ãƒ—è¨­å®š
 			dump_DEV_OPLL = dump_DEV_OPLL_bf;
-			//‚±‚±‚Ü‚Åƒ_ƒ“ƒvÝ’è
+			//ã“ã“ã¾ã§ãƒ€ãƒ³ãƒ—è¨­å®š
 		}
 		if (THIS_->extdevice & EXTDEVICE_MSXAUDIO)
 		{
 			THIS_->sndp[SND_MSXAUDIO] = OPLSoundAlloc(OPL_TYPE_MSXAUDIO);
 			//THIS_->sndp[SND_MSXAUDIO] = OPLSoundAlloc(OPL_TYPE_OPL2);
 			if (!THIS_->sndp[SND_MSXAUDIO]) return NESERR_SHORTOFMEMORY;
-			//‚±‚±‚©‚çƒ_ƒ“ƒvÝ’è
+			//ã“ã“ã‹ã‚‰ãƒ€ãƒ³ãƒ—è¨­å®š
 			dump_DEV_OPL = dump_DEV_OPL_bf;
 			dump_DEV_ADPCM = dump_DEV_ADPCM_bf;
-			//‚±‚±‚Ü‚Åƒ_ƒ“ƒvÝ’è
+			//ã“ã“ã¾ã§ãƒ€ãƒ³ãƒ—è¨­å®š
 		}
 		if (THIS_->extdevice & EXTDEVICE_EXRAM)
 		{
@@ -825,9 +825,9 @@ Extra Device : %s%s%s%s%s"
 		{
 			THIS_->sndp[SND_SCC] = SCCSoundAlloc();
 			if (!THIS_->sndp[SND_SCC]) return NESERR_SHORTOFMEMORY;
-			//‚±‚±‚©‚çƒ_ƒ“ƒvÝ’è
+			//ã“ã“ã‹ã‚‰ãƒ€ãƒ³ãƒ—è¨­å®š
 			dump_DEV_SCC = dump_DEV_SCC_bf;
-			//‚±‚±‚Ü‚Åƒ_ƒ“ƒvÝ’è
+			//ã“ã“ã¾ã§ãƒ€ãƒ³ãƒ—è¨­å®š
 			THIS_->rammode = (THIS_->extdevice & EXTDEVICE_MSXRAM) != 0;
 			THIS_->sccenable = !THIS_->rammode;
 		}

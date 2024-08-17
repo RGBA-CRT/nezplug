@@ -291,16 +291,16 @@ static void vsync_event(KMEVENT *event, KMEVENT_ITEM_ID curid, SGCSEQ *THIS_)
 	if (THIS_->ctx.regs8[REGID_HALTED]) play_setup(THIS_, THIS_->playaddr);
 }
 
-//‚±‚±‚©‚çƒƒ‚ƒŠ[ƒrƒ…ƒA[İ’è
+//ã“ã“ã‹ã‚‰ãƒ¡ãƒ¢ãƒªãƒ¼ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 Uint32 (*memview_memread)(Uint32 a);
 SGCSEQ* memview_context;
 int MEM_MAX,MEM_IO,MEM_RAM,MEM_ROM;
 Uint32 memview_memread_sgc(Uint32 a){
 	return read_event(memview_context,a);
 }
-//‚±‚±‚Ü‚Åƒƒ‚ƒŠ[ƒrƒ…ƒA[İ’è
+//ã“ã“ã¾ã§ãƒ¡ãƒ¢ãƒªãƒ¼ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 
-//‚±‚±‚©‚çƒ_ƒ“ƒvİ’è
+//ã“ã“ã‹ã‚‰ãƒ€ãƒ³ãƒ—è¨­å®š
 static NEZ_PLAY *pNezPlayDump;
 static Uint32 dump_MEM_MSX_bf(Uint32 menu,unsigned char* mem){
 	int i;
@@ -430,7 +430,7 @@ static void reset(NEZ_PLAY *pNezPlay)
 
 		XMEMSET(THIS_->bios, 0xc9, sizeof(THIS_->bios));
 
-		{	//BIOS‚Ìƒ[ƒh 
+		{	//BIOSã®ãƒ­ãƒ¼ãƒ‰ 
 			static FILE *fp = NULL;
 			fp = fopen(ColecoBIOSFilePath, "rb");
 			if (fp){
@@ -509,11 +509,11 @@ static void reset(NEZ_PLAY *pNezPlay)
 	}
 	THIS_->total_cycles = 0;
 
-	//‚±‚±‚©‚çƒƒ‚ƒŠ[ƒrƒ…ƒA[İ’è
+	//ã“ã“ã‹ã‚‰ãƒ¡ãƒ¢ãƒªãƒ¼ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 	memview_context = THIS_;
 	MEM_MAX=0xffff;
 	memview_memread = memview_memread_sgc;
-	//‚±‚±‚Ü‚Åƒƒ‚ƒŠ[ƒrƒ…ƒA[İ’è
+	//ã“ã“ã¾ã§ãƒ¡ãƒ¢ãƒªãƒ¼ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 
 }
 
@@ -521,11 +521,11 @@ static void terminate(SGCSEQ *THIS_)
 {
 	Uint32 i;
 
-	//‚±‚±‚©‚çƒ_ƒ“ƒvİ’è
+	//ã“ã“ã‹ã‚‰ãƒ€ãƒ³ãƒ—è¨­å®š
 	dump_MEM_MSX     = NULL;
 	dump_DEV_SN76489 = NULL;
 	dump_DEV_OPLL    = NULL;
-	//‚±‚±‚Ü‚Åƒ_ƒ“ƒvİ’è
+	//ã“ã“ã¾ã§ãƒ€ãƒ³ãƒ—è¨­å®š
 	for (i = 0; i < SND_MAX; i++)
 	{
 		if (THIS_->sndp[i]) THIS_->sndp[i]->release(THIS_->sndp[i]->ctx);
@@ -642,9 +642,9 @@ RAM Bank      (8000-BFFF): %d\r\n\
 	XMEMCPY(copyrightbuffer, pData + 0x0080, 0x20);
 	songinfodata.copyright=copyrightbuffer;
 
-	//‚±‚±‚©‚çƒ_ƒ“ƒvİ’è
+	//ã“ã“ã‹ã‚‰ãƒ€ãƒ³ãƒ—è¨­å®š
 	dump_MEM_MSX     = dump_MEM_MSX_bf;
-	//‚±‚±‚Ü‚Åƒ_ƒ“ƒvİ’è
+	//ã“ã“ã¾ã§ãƒ€ãƒ³ãƒ—è¨­å®š
 
 	switch(THIS_->systype){
 	case SYNTHMODE_SMS:
@@ -652,10 +652,10 @@ RAM Bank      (8000-BFFF): %d\r\n\
 		THIS_->sndp[SND_FMUNIT] = OPLSoundAlloc(OPL_TYPE_SMSFMUNIT);
 		if (!THIS_->sndp[SND_FMUNIT]) return NESERR_SHORTOFMEMORY;
 		SONGINFO_SetChannel(pNezPlay->song, 1);
-		//‚±‚±‚©‚çƒ_ƒ“ƒvİ’è
+		//ã“ã“ã‹ã‚‰ãƒ€ãƒ³ãƒ—è¨­å®š
 		dump_DEV_SN76489 = dump_DEV_SN76489_bf;
 		dump_DEV_OPLL = dump_DEV_OPLL_bf;
-		//‚±‚±‚Ü‚Åƒ_ƒ“ƒvİ’è
+		//ã“ã“ã¾ã§ãƒ€ãƒ³ãƒ—è¨­å®š
 		THIS_->datasize = uSize - headersize;
 		THIS_->banknum = ((THIS_->datasize+THIS_->loadaddr)>>14)+1;
 		if(THIS_->banknum < 3)THIS_->banknum = 3;
@@ -675,9 +675,9 @@ RAM Bank      (8000-BFFF): %d\r\n\
 	case SYNTHMODE_GG:
 		THIS_->sndp[SND_SNG] = SNGSoundAlloc(SNG_TYPE_GAMEGEAR);
 		SONGINFO_SetChannel(pNezPlay->song, 2);
-		//‚±‚±‚©‚çƒ_ƒ“ƒvİ’è
+		//ã“ã“ã‹ã‚‰ãƒ€ãƒ³ãƒ—è¨­å®š
 		dump_DEV_SN76489 = dump_DEV_SN76489_bf2;
-		//‚±‚±‚Ü‚Åƒ_ƒ“ƒvİ’è
+		//ã“ã“ã¾ã§ãƒ€ãƒ³ãƒ—è¨­å®š
 		THIS_->datasize = uSize - headersize;
 		THIS_->banknum = ((THIS_->datasize+THIS_->loadaddr)>>14)+1;
 		if(THIS_->banknum < 3)THIS_->banknum = 3;
@@ -697,9 +697,9 @@ RAM Bank      (8000-BFFF): %d\r\n\
 	case SYNTHMODE_CV:
 		THIS_->sndp[SND_SNG] = SNGSoundAlloc(SNG_TYPE_SN76489AN);
 		SONGINFO_SetChannel(pNezPlay->song, 1);
-		//‚±‚±‚©‚çƒ_ƒ“ƒvİ’è
+		//ã“ã“ã‹ã‚‰ãƒ€ãƒ³ãƒ—è¨­å®š
 		dump_DEV_SN76489 = dump_DEV_SN76489_bf;
-		//‚±‚±‚Ü‚Åƒ_ƒ“ƒvİ’è
+		//ã“ã“ã¾ã§ãƒ€ãƒ³ãƒ—è¨­å®š
 		THIS_->banknum = 4;
 		THIS_->banksize = 0x2000;
 		THIS_->datasize = uSize - headersize;
