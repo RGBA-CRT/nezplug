@@ -228,8 +228,16 @@ const char **GetPluginInfo(void)
 			NSF_noise_random_reset = 1;
 	}
 	{
+		extern int NSF_2A03Type;
+		NSF_2A03Type = GetPrivateProfileIntEx2(sectionname, "2A03Type", 1, iniFilePath, 0, 3);
+	}
+	{
 		extern int Namco106_Realmode;
 		Namco106_Realmode = GetPrivateProfileIntEx2(sectionname, "Namco106RealMode", 1, iniFilePath, 0, 3);
+	}
+	{
+		extern int Namco106_Volume;
+		Namco106_Volume = GetPrivateProfileIntEx2(sectionname, "Namco106Volume", 16, iniFilePath, 0, 64);
 	}
 	{
 		extern int GBAMode;

@@ -648,9 +648,9 @@ First ROM Bank(F000-FFFF or 7000-7FFF): %02XH"
 		,GetWordLE(pData + 0x78),GetWordLE(pData + 0x78) ? 1000000.0/GetWordLE(pData + 0x78) : 0
 		,pData[0x7B]&0x01 ? "VRC6 " : ""
 		,pData[0x7B]&0x02 ? "VRC7 " : ""
-		,pData[0x7B]&0x04 ? "FDS " : ""
+		,pData[0x7B]&0x04 ? "2C33 " : ""
 		,pData[0x7B]&0x08 ? "MMC5 " : ""
-		,pData[0x7B]&0x10 ? "Namco106 " : ""
+		,pData[0x7B]&0x10 ? "Namco1xx " : ""
 		,pData[0x7B]&0x20 ? "Sunsoft5B " : ""
 		,pData[0x7B] ? "" : "None"
 		,pData[0x70]|pData[0x71]|pData[0x72]|pData[0x73]|pData[0x74]|pData[0x75]|pData[0x76]|pData[0x77] ? 1 : 0

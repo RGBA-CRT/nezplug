@@ -56,9 +56,8 @@ LINK32=link.exe
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib ..\Release\nezplug.lib /nologo /subsystem:windows /dll /machine:IX86 /def:"ui\winamp\in_nez.def" /pdbtype:sept
 # SUBTRACT LINK32 /pdb:none
 # Begin Special Build Tool
-TargetPath=\CPP Folder\My Project\nezplug\Release\in_nez\in_nez.dll
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy "$(TargetPath)" "I:\Program Files\Winamp\Plugins\"
+PostBuild_Cmds=copy "C:\My Projects\CPP Folder\My Project\nezplug\Release\in_nez\in_nez.dll" "C:\Program Files (x86)\Winamp\Plugins\"
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "in_nez - Win32 Debug"
@@ -199,6 +198,7 @@ SOURCE=.\ui\nezplug\Dialog.c
 DEP_CPP_DIALO=\
 	".\ui\nezplug\ChMask.h"\
 	".\ui\nezplug\Dialog.h"\
+	".\ui\nezplug\Dump.h"\
 	".\ui\nezplug\FileInfo.h"\
 	".\ui\nezplug\IOView.h"\
 	".\ui\nezplug\MemView.h"\

@@ -25,8 +25,8 @@
 #define SQ_VOL_BIT 10
 #define TR_VOL ((1<<9)*4)
 #define NOISE_VOL ((1<<8)*4)
-#define DPCM_VOL ((1<<6)*4)
-#define DPCM_VOL_DOWN 455
+#define DPCM_VOL ((1<<6)*5)
+//#define DPCM_VOL_DOWN 455
 
 
 #define AMPTML_BITS 14
@@ -110,7 +110,8 @@ typedef struct {
 	Uint8 fp;		/* frame position; */
 	Uint8 key;
 	Uint8 mute;
-	Uint8 ct;
+	Int32 ct;
+	Uint8 ct2;
 	Uint32 dpcmout;
 } NESAPU_TRIANGLE;
 
@@ -172,16 +173,22 @@ typedef struct {
 	//Int32 amptbl[1 << AMPTML_BITS];
 } APUSOUND;
 
+
+
 Int32 NSF_noise_random_reset = 0;
 Int32 NESAPUVolume = 64;
 Int32 NESRealDAC = 1;
+Int32 NSF_2A03Type = 1;
 /* ------------------------- */
 /*  NES INTERNAL SOUND(APU)  */
 /* ------------------------- */
 
 /* GBSOUND.TXT */
-const static Uint8 square_duty_table[4][8] = 
-	{ {0,0,0,1,0,0,0,0} , {0,0,0,1,1,0,0,0} , {0,0,0,1,1,1,1,0} , {1,1,1,0,0,1,1,1} };
+const static Uint8 square_duty_table[][8] = 
+{
+	{0,0,0,1,0,0,0,0} , {0,0,0,1,1,0,0,0} , {0,0,0,1,1,1,1,0} , {1,1,1,0,0,1,1,1} ,
+	{1,0,0,0,0,0,0,0} , {1,1,1,1,0,0,0,0} , {1,1,0,0,0,0,0,0} , {1,1,1,1,1,1,0,0}  //クソ互換機のDuty比のひっくり返ってるやつ 
+};
 //	{ {0,1,0,0,0,0,0,0} , {0,1,1,0,0,0,0,0} , {0,1,1,1,1,0,0,0} , {0,1,1,1,1,1,1,0} };
 
 const static Uint8 square_duty_avg[4] = {2,4,8,12};
@@ -233,7 +240,8 @@ __inline static void LengthCounterStep(LENGTHCOUNTER *lc)
 　それ以後の4008書き込みは、キーオフカウンタは有効無効以外無視となる。
 ・4008の値変更による消音・発声のタイミングは、三角波音長カウント時（つまり、4017-MSBが0の時は240Hz周期）。
 ・400B書き込みによるキーオンは、カウント周期が来たあとに発声される。
-・周波数は書いて瞬時に反映される。そのため、8-10bit目をまたぐ周波数変更は、変更の合間の周波数の値によってはプチノイズが出る。
+・周波数は書いて瞬時に反映される。そのため、8-10bit目をまたぐ周波数変更は、
+　変更の合間の周波数の値によってはプチノイズがときどき出る。
 */
 __inline static void LinearCounterStep(LINEARCOUNTER *li/*, Uint32 cps*/)
 {
@@ -417,6 +425,7 @@ static Int32 NESAPUSoundTriangleRender(NESAPU_TRIANGLE *ch)
 	ch->output *= TR_VOL;
 
 	if (ch->key && (ch->li.clock_disable ? ch->li.load : ch->li.counter ) &&  ch->lc.counter) {
+		/* 古いタイプ 
 		ch->pt += ch->cps << TRIANGLE_RENDERS;
 		if (ch->wl <= 4){
 			ch->st += ch->pt / (((ch->wl + 1) << CPS_BITS)>>TRIANGLE_RENDERS);
@@ -441,13 +450,67 @@ static Int32 NESAPUSoundTriangleRender(NESAPU_TRIANGLE *ch)
 				}
 			}
 		}
+		*/
+		//新しいタイプ。レンダー毎に一定の減算を行い、アンダーフロー時に周波数レジスタ値で
+		//カウントリセットする方式。
+		//9bit目をまたぐときのプチノイズの乗り方的に、たぶん実機の動作はこれかと。
+		if(ch->wlb < 4){
+			//周波数レジスタが極端に小さいとき。ここは適当で良いかぁ。
+			/*//これちと重い
+			ch->pt += ch->cps << TRIANGLE_RENDERS;
+
+			ch->ct -= ch->pt / (1<<CPS_BITS);
+			ch->pt %= (1<<CPS_BITS);
+
+			while (ch->ct < 0)//カウンタがアンダーフローした場合
+			{
+				ch->ct += ch->wlb;
+				ch->ct2++;
+
+				if(ch->ct2 >= (1 << TRIANGLE_RENDERS)){
+					ch->wlb = ch->wl +1;
+					ch->ct += ch->wlb;
+					ch->ct2 = 0;
+					ch->st++;
+				}
+			}*/
+			ch->wlb = ch->wl +1;
+
+			ch->output = 8;
+			ch->output *= TR_VOL;
+		}else{
+			ch->pt += ch->cps << TRIANGLE_RENDERS;
+
+			ch->ct -= ch->pt / (1<<CPS_BITS);
+			ch->pt %= (1<<CPS_BITS);
+
+			while (ch->ct < 0)//カウンタがアンダーフローした場合
+			{
+				ch->ct += ch->wlb;
+				ch->ct2++;
+
+				outputbuf += ch->output;
+				count++;
+
+				if(ch->ct2 >= (1 << TRIANGLE_RENDERS)){
+					ch->wlb = ch->wl +1;
+					ch->ct2 = 0;
+					ch->st++;
+
+					ch->output = (ch->st & 0x0f);
+					if (ch->st & 0x10) ch->output = ch->output ^ 0xf ;
+					ch->output *= TR_VOL;
+				}
+			}
+		}
 	}
 	if (ch->mute) return 0;
 	outputbuf += ch->output;
 	count++;
 
 	outputbuf = outputbuf / count;
-	return outputbuf * ch->dpcmout / DPCM_VOL_DOWN;
+	//return outputbuf * ch->dpcmout / DPCM_VOL_DOWN;
+	return outputbuf;
 
 //	return LogToLinear(output, LOG_LIN_BITS - LIN_BITS - 18 + VOL_SHIFT) * ((0x80 - ch->dpcmvol)/128.0) * 1.25;
 }
@@ -478,6 +541,8 @@ static Int32 NESAPUSoundNoiseRender(NESAPU_NOISE *ch)
 
 	ch->output = (ch->rng & 1) * (ch->ed.disable ? ch->ed.volume : ch->ed.counter);
 	ch->output *= NOISE_VOL;
+	//クソ互換機は、やたらとノイズがでかい。
+	if(NSF_2A03Type==2)ch->output *= 2;
 
 	ch->pt += ch->cps << NOISE_RENDERS;
 	while (ch->pt >= ch->wl << (CPS_BITS + 1))
@@ -496,6 +561,8 @@ static Int32 NESAPUSoundNoiseRender(NESAPU_NOISE *ch)
 
 			ch->output = (ch->rng & 1) * (ch->ed.disable ? ch->ed.volume : ch->ed.counter);
 			ch->output *= NOISE_VOL;
+			//クソ互換機は、やたらとノイズがでかい。
+			if(NSF_2A03Type==2)ch->output *= 2;
 		}
 	}
 	outputbuf += ch->output;
@@ -503,7 +570,8 @@ static Int32 NESAPUSoundNoiseRender(NESAPU_NOISE *ch)
 	if (ch->mute) return 0;
 
 	outputbuf = outputbuf / count;
-	return outputbuf * ch->dpcmout / DPCM_VOL_DOWN;
+	//return outputbuf * ch->dpcmout / DPCM_VOL_DOWN;
+	return outputbuf;
 }
 
 __inline static void NESAPUSoundDpcmRead(NEZ_PLAY *pNezPlay, NESAPU_DPCM *ch)
@@ -518,6 +586,12 @@ static void NESAPUSoundDpcmStart(NEZ_PLAY* pNezPlay, NESAPU_DPCM *ch)
 	ch->adr = 0xC000 + ((Uint)ch->start_adr << 6);
 	ch->length = (((Uint)ch->start_length << 4) + 1) << 3;
 	ch->irq_report = 0;
+/*
+	if (ch->irq_enable && !ch->loop_enable){
+		//割り込みがかかる条件の場合
+		NES6502SetIrqCount((NEZ_PLAY*)pNezPlay, ch->length * ch->wl);
+	}
+*/
 	NESAPUSoundDpcmRead(pNezPlay, ch);
 }
 
@@ -564,9 +638,10 @@ static Int32 __fastcall NESAPUSoundDpcmRender(void *pNezPlay)
 					{
 						if (ch->irq_enable)
 						{
-							NES6502Irq((NEZ_PLAY*)pNezPlay);	/* irq gen */
+							NES6502Irq((NEZ_PLAY*)pNezPlay);	// irq gen
 							ch->irq_report = 0x80;
 						}
+						
 						ch->length = 0;
 						ch->key = 0;
 					}
@@ -584,6 +659,7 @@ static Int32 __fastcall NESAPUSoundDpcmRender(void *pNezPlay)
 	outputbuf += ch->output;
 	count++;
 	outputbuf /= count;
+	/*
 	if (NESRealDAC) {
 		((APUSOUND*)((NSFNSF*)((NEZ_PLAY*)pNezPlay)->nsf)->apu)->triangle.dpcmout = 
 		((APUSOUND*)((NSFNSF*)((NEZ_PLAY*)pNezPlay)->nsf)->apu)->noise.dpcmout = 
@@ -593,6 +669,7 @@ static Int32 __fastcall NESAPUSoundDpcmRender(void *pNezPlay)
 		((APUSOUND*)((NSFNSF*)((NEZ_PLAY*)pNezPlay)->nsf)->apu)->noise.dpcmout = 
 			DPCM_VOL_DOWN;
 	}
+	*/
 	return	outputbuf;
 #else
 	return (LogToLinear(LinearToLog((ch->dacout << 1) + ch->dacout0) + ch->mastervolume, LOG_LIN_BITS - LIN_BITS - 16 + VOL_SHIFT + 1)
@@ -603,27 +680,31 @@ static Int32 __fastcall NESAPUSoundDpcmRender(void *pNezPlay)
 }
 
 
+#define DAC_SQ_DOWN (1<<12)
+#define DAC_SQ_BIT 32
+#define DAC_TND_DOWN (1<<12)
+#define DAC_TND_BIT 46
+
 static Int32 __fastcall APUSoundRender(void *pNezPlay)
 {
 	APUSOUND *apu = ((NSFNSF*)((NEZ_PLAY*)pNezPlay)->nsf)->apu;
-	Int32 accum = 0 , sqout = 0 , tndout = 0;
+	Int32 accum = 0 , sqout = 0, tndout = 0;
 	sqout += NESAPUSoundSquareRender(&apu->square[0]) * chmask[DEV_2A03_SQ1];
 	sqout += NESAPUSoundSquareRender(&apu->square[1]) * chmask[DEV_2A03_SQ2];
-//DACの仕様がよく分かるまでは無効にしておく
-//	if (NESRealDAC) {
-//		sqout = apu->amptbl[sqout >> (16 + 1 + 1 - AMPTML_BITS)];
-//	} else {
-		sqout >>= 1;
-//	}
+	sqout >>= 1;
+	//出力のひずみを再現
+	if (NESRealDAC) {
+		sqout = sqout * (DAC_SQ_DOWN - (abs(sqout) / DAC_SQ_BIT)) / DAC_SQ_DOWN;
+	}
 	accum += sqout * apu->square[0].mastervolume / 20/*20kΩ*/;
 	tndout += NESAPUSoundDpcmRender(pNezPlay) * chmask[DEV_2A03_DPCM];
 	tndout += NESAPUSoundTriangleRender(&apu->triangle) * chmask[DEV_2A03_TR];
 	tndout += NESAPUSoundNoiseRender(&apu->noise) * chmask[DEV_2A03_NOISE];
-//	if (NESRealDAC) {
-//		tndout = apu->amptbl[tndout >> (16 + 1 + 1 - AMPTML_BITS)];
-//	} else {
-		tndout >>= 1;
-//	}
+	tndout >>= 1;
+	//出力のひずみを再現
+	if (NESRealDAC) {
+		tndout = tndout * (DAC_TND_DOWN - (abs(tndout) / DAC_TND_BIT)) / DAC_TND_DOWN;
+	}
 	accum += tndout * apu->triangle.mastervolume / 12/*12kΩ*/;
 	//accum = apu->amptbl[tndout >> (26 - AMPTML_BITS)];
 	accum -= 0x60000;
@@ -673,7 +754,12 @@ static void __fastcall APUSoundWrite(void *pNezPlay, Uint address, Uint value)
 					apu->square[ch].ed.disable = (Uint8)(value & 0x10);
 					apu->square[ch].lc.clock_disable = (Uint8)(value & 0x20);
 					apu->square[ch].ed.looping_enable = (Uint8)(value & 0x20);
-					apu->square[ch].duty = (value >> 6) & 3;
+					//クソ互換機のへんてこDuty比にするのを、ここでやる。
+					if(NSF_2A03Type==2){
+						apu->square[ch].duty = ((value >> 6) & 3)|4;
+					}else{
+						apu->square[ch].duty = (value >> 6) & 3;
+					}
 				}
 				break;
 			case 0x4001:	case 0x4005:
@@ -689,7 +775,7 @@ static void __fastcall APUSoundWrite(void *pNezPlay, Uint address, Uint value)
 			case 0x4002:	case 0x4006:
 				{
 					int ch = address >= 0x4004;
-					apu->square[ch].wl &= 0x700;
+					apu->square[ch].wl &= 0xffffff00;
 					apu->square[ch].wl += value;
 				}
 				break;
@@ -761,8 +847,14 @@ static void __fastcall APUSoundWrite(void *pNezPlay, Uint address, Uint value)
 				apu->noise.ed.looping_enable = (Uint8)(value & 0x20);
 				break;
 			case 0x400e:
-				apu->noise.wl = wavelength_converter_table[value & 0x0f];
-				apu->noise.rngshort = (Uint8)(value & 0x80);
+				//初代2A03では、ノイズ15段階＆短周期無しなので、それをレジスタいじりで再現。
+				if(NSF_2A03Type==0){
+					apu->noise.wl = wavelength_converter_table[(value & 0x0f)==0xf ? (0xe) : (value & 0x0f)];
+					apu->noise.rngshort = 0;
+				}else{
+					apu->noise.wl = wavelength_converter_table[value & 0x0f];
+					apu->noise.rngshort = (Uint8)(value & 0x80);
+				}
 				break;
 			case 0x400f:
 				// apu.noise.rng = 0x8000;
@@ -887,7 +979,11 @@ static Uint __fastcall APUSoundRead(void *pNezPlay, Uint address)
 		if (apu->triangle.key && apu->triangle.lc.counter) key |= 4;
 		if (apu->noise.key && apu->noise.lc.counter) key |= 8;
 		if (apu->dpcm.length) key |= 16;
-		return key | 0x40 | apu->dpcm.irq_report;
+		key |= apu->dpcm.irq_report;
+		key |= ((NSFNSF*)((NEZ_PLAY*)pNezPlay)->nsf)->vsyncirq_fg;
+		apu->dpcm.irq_report = 0;
+		((NSFNSF*)((NEZ_PLAY*)pNezPlay)->nsf)->vsyncirq_fg = 0;
+		return key;
 	}
 	if (0x4000 <= address && address <= 0x4017)
 		return 0x40; //$4000～$4014を読んでも、全部$40が返ってくる（ファミベ調べ） 

@@ -416,10 +416,10 @@ __inline static void sndwritereg(PSGSOUND *sndp, Uint32 a, Uint32 v)
 			sndp->square[a - 0x8].regs[2] = v;
 			break;
 		case 0xD:
+			sndp->envelope.cycles = 0;
+			sndp->envelope.adr = env_table[sndp->regs[0xd] & 0xF];
 		case 0xB: case 0xC:
 			sndp->envelope.regs[a - 0xB] = v;
-			sndp->envelope.adr = env_table[sndp->regs[0xd] & 0xF];
-			sndp->envelope.cycles = 0;
 			break;
 	}
 }

@@ -245,6 +245,9 @@ static int play(char *fn)
 	int samplerate, maxlatency, ch;
 #endif
 	if (player_data.hEvent == NULL) return 1;
+
+	InitSequencer(mod.hDllInstance);//Ä¶–ˆ‚Éİ’è‚ğ”½‰f‚³‚¹‚½‚¢
+
 	sequencer = loadFile(fn);
 	getfileinfo(NULL, NULL, (int *)&player_data.length);
 #if !N_VERSION

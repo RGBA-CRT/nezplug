@@ -8,6 +8,7 @@
 #include "s_vrc7.h"
 
 #define MASTER_CLOCK        (3579545)
+#define VRC7_VOL 4/3
 
 #include "../opl/s_opl.h"
 
@@ -59,7 +60,7 @@ static Int32 __fastcall OPLLSoundRender(void* pNezPlay)
 	OPLLSOUND_INTF *sndp = ((NSFNSF*)((NEZ_PLAY*)pNezPlay)->nsf)->sndp;
 	Int32 b[2] = {0, 0};
 	sndp->kmif->synth(sndp->kmif->ctx, b);
-	return b[0];
+	return b[0]*VRC7_VOL;
 }
 
 static void __fastcall OPLLSoundRender2(void* pNezPlay, Int32 *d)
@@ -70,7 +71,8 @@ static void __fastcall OPLLSoundRender2(void* pNezPlay, Int32 *d)
 
 
 const static NES_AUDIO_HANDLER s_opll_audio_handler[] = {
-	{ 3, OPLLSoundRender, OPLLSoundRender2, }, 
+	{ 1, OPLLSoundRender}, 
+//	{ 3, OPLLSoundRender, OPLLSoundRender2, }, 
 	{ 0, 0, 0, }, 
 };
 

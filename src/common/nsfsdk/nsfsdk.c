@@ -195,6 +195,16 @@ void NSFSDKAPI NSFSDK_LoadSetting(HNSF hnsf, char *file)
 		SetSettingInt("Namco106RealMode", Namco106_Realmode, file);
 	}
 	{
+		extern int Namco106_Volume;
+		Namco106_Volume = GetSettingInt("Namco106Volume", 16, file);
+		SetSettingInt("Namco106Volume", Namco106_Volume, file);
+	}
+	{
+		extern int NSF_2A03Type;
+		NSF_2A03Type  = GetSettingInt("2A03Type", 1, file);
+		SetSettingInt("2A03Type", NSF_2A03Type, file);
+	}
+	{
 		extern int FDS_RealMode;
 		FDS_RealMode = GetSettingInt("FDSRealMode", 3, file);
 		SetSettingInt("FDSRealMode", FDS_RealMode, file);
@@ -213,7 +223,7 @@ void NSFSDKAPI NSFSDK_LoadSetting(HNSF hnsf, char *file)
 	}
 	{
 		extern int NESAPUVolume;
-		NESAPUVolume = GetSettingInt("NESAPUVolume", 56, file);
+		NESAPUVolume = GetSettingInt("NESAPUVolume", 64, file);
 		if (NESAPUVolume < 0) NESAPUVolume =  0;
 		if (NESAPUVolume > 255) NESAPUVolume = 255;
 		SetSettingInt("NESAPUVolume", NESAPUVolume, file);

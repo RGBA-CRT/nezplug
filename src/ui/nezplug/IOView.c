@@ -53,14 +53,14 @@ unsigned int speed_idc[5]={
 
 char devstring[DEV_MAX_][20]={
 	"2A03    - REG",
-	"FDS     - REG",
+	"2C33    - REG",
 	"MMC5    - REG",
 	"VRC6    - REG",
-	"N106/163- REG",
+	"N1xx    - REG",
 	"DMG     - REG",
 	"HuC6230 - REG",
 	"PSG     - REG",
-	"SN76489 - REG",
+	"DCSG    - REG",
 	"SCC     - REG",
 	"OPL     - REG",
 	"OPLL    - REG",

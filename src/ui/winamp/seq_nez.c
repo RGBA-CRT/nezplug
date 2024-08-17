@@ -405,19 +405,36 @@ void InitNezSequencer(HINSTANCE hDllInstance)
 	setting.hDllInstance = hDllInstance;
 
 	{
+		extern int NESAPUVolume;
+		NESAPUVolume = GetSettingInt("NESAPUVolume", 64);
+		if (NESAPUVolume < 0) NESAPUVolume =  0;
+		if (NESAPUVolume > 255) NESAPUVolume = 255;
+		SetSettingInt("NESAPUVolume", NESAPUVolume);
+	}
+	{
+		extern int NESRealDAC;
+		NESRealDAC = GetSettingInt("NESRealDAC", 1);
+		SetSettingInt("NESRealDAC", NESRealDAC);
+	}
+	{
 		extern int NSF_noise_random_reset;
 		NSF_noise_random_reset  = GetSettingInt("NSFNoiseRandomReset", 0);
 		SetSettingInt("NSFNoiseRandomReset", NSF_noise_random_reset);
 	}
 	{
-		extern int Always_stereo;
-		Always_stereo  = GetSettingInt("AlwaysStereo", 0);
-		SetSettingInt("AlwaysStereo", Always_stereo);
+		extern int NSF_2A03Type;
+		NSF_2A03Type  = GetSettingInt("2A03Type", 1);
+		SetSettingInt("2A03Type", NSF_2A03Type);
 	}
 	{
 		extern int Namco106_Realmode;
 		Namco106_Realmode = GetSettingInt("Namco106RealMode", 1);
 		SetSettingInt("Namco106RealMode", Namco106_Realmode);
+	}
+	{
+		extern int Namco106_Volume;
+		Namco106_Volume = GetSettingInt("Namco106Volume", 16);
+		SetSettingInt("Namco106Volume", Namco106_Volume);
 	}
 	{
 		extern int FDS_RealMode;
@@ -430,25 +447,6 @@ void InitNezSequencer(HINSTANCE hDllInstance)
 		SetSettingInt("GBAMode", GBAMode);
 	}
 	{
-		extern int LowPassFilterLevel;
-		LowPassFilterLevel = GetSettingInt("LowPassFilterLevel", 16);
-		if (LowPassFilterLevel <  0) LowPassFilterLevel =  0;
-		if (LowPassFilterLevel > 32) LowPassFilterLevel = 32;
-		SetSettingInt("LowPassFilterLevel", LowPassFilterLevel);
-	}
-	{
-		extern int NESAPUVolume;
-		NESAPUVolume = GetSettingInt("NESAPUVolume", 56);
-		if (NESAPUVolume < 0) NESAPUVolume =  0;
-		if (NESAPUVolume > 255) NESAPUVolume = 255;
-		SetSettingInt("NESAPUVolume", NESAPUVolume);
-	}
-	{
-		extern int NESRealDAC;
-		NESRealDAC = GetSettingInt("NESRealDAC", 1);
-		SetSettingInt("NESRealDAC", NESRealDAC);
-	}
-	{
 		extern int MSXPSGType;
 		MSXPSGType = GetSettingInt("MSXPSGType", 1);
 		SetSettingInt("MSXPSGType", MSXPSGType);
@@ -459,6 +457,18 @@ void InitNezSequencer(HINSTANCE hDllInstance)
 		if (MSXPSGVolume < 0) MSXPSGVolume =  0;
 		if (MSXPSGVolume > 255) MSXPSGVolume = 255;
 		SetSettingInt("MSXPSGVolume", MSXPSGVolume);
+	}
+	{
+		extern int LowPassFilterLevel;
+		LowPassFilterLevel = GetSettingInt("LowPassFilterLevel", 16);
+		if (LowPassFilterLevel <  0) LowPassFilterLevel =  0;
+		if (LowPassFilterLevel > 32) LowPassFilterLevel = 32;
+		SetSettingInt("LowPassFilterLevel", LowPassFilterLevel);
+	}
+	{
+		extern int Always_stereo;
+		Always_stereo  = GetSettingInt("AlwaysStereo", 0);
+		SetSettingInt("AlwaysStereo", Always_stereo);
 	}
 	{
 		extern char ColecoBIOSFilePath[0x200];
