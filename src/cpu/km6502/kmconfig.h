@@ -54,8 +54,8 @@ typedef unsigned char Ubyte;			/* unsigned 8bit integer for table */
 #ifndef Inline
 #define Inline __inline__
 #endif
-#define CCall
-#define FastCall /* __attribute__((regparm(2))) */
+#define CCall __cdecl
+#define FastCall __fastcall
 #define RTO16(w) ((Uword)((w) & 0xFFFF))	/* Round to 16bit integer */
 #define RTO8(w) ((Uword)((w) & 0xFF))		/* Round to  8bit integer */
 #else

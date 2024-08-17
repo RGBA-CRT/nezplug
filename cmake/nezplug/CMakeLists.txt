@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
-# Set the project name
-project (nezplug)
+set(TARGET_NAME nezplug)
+project (${TARGET_NAME})
 
 set(BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../..)
 set(GLOBAL_SRC_DIR ${BASE_DIR})
@@ -94,8 +94,10 @@ set(src_list
 	${BASE_DIR}/src/zlib/zutil.c
 )
 # Add an executable
-add_library(nezplug SHARED ${src_list})
+add_library(${TARGET_NAME} SHARED ${src_list})
 
-target_link_libraries(nezplug PRIVATE comdlg32 )
-target_include_directories(nezplug PRIVATE ${BASE_DIR}/src)
-target_include_directories(nezplug PRIVATE ${BASE_DIR}/src/cpu)
+target_link_libraries(${TARGET_NAME} PRIVATE comdlg32 )
+target_include_directories(${TARGET_NAME} PRIVATE ${BASE_DIR}/src)
+target_include_directories(${TARGET_NAME} PRIVATE ${BASE_DIR}/src/cpu)
+
+install(TARGETS ${TARGET_NAME} RUNTIME DESTINATION bin)

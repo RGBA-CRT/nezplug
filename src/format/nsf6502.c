@@ -146,7 +146,7 @@ static void __fastcall NullWrite(void *pNezPlay, Uint A, Uint V)
 }
 
 
-//‚±‚±‚©‚çƒƒ‚ƒŠ[ƒrƒ…ƒA[Ý’è
+//ã“ã“ã‹ã‚‰ãƒ¡ãƒ¢ãƒªãƒ¼ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 static Uint32 (*memview_memread)(Uint32 a);
 static NEZ_PLAY* memview_context;
 static int MEM_MAX,MEM_IO,MEM_RAM,MEM_ROM;
@@ -155,7 +155,7 @@ Uint32 memview_memread_nes(Uint32 a){
 		return ExtRdTbl[(a>>12) & 0xF](memview_context,a);
 	else return 0xFF;
 }
-//‚±‚±‚Ü‚Åƒƒ‚ƒŠ[ƒrƒ…ƒA[Ý’è
+//ã“ã“ã¾ã§ãƒ¡ãƒ¢ãƒªãƒ¼ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 
 
 
@@ -167,14 +167,14 @@ static void NES6502Reset(NEZ_PLAY *pNezPlay)
 	nsf->work6502.PC = nsf->work6502_BP = 0xFFFF;
 	NES6502Execute(pNezPlay, 0, nsf->work6502.clock + 1);
 
-	//‚±‚±‚©‚çƒƒ‚ƒŠ[ƒrƒ…ƒA[Ý’è
+	//ã“ã“ã‹ã‚‰ãƒ¡ãƒ¢ãƒªãƒ¼ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 	memview_context = pNezPlay;
 	MEM_MAX=0xffff;
 	MEM_IO =0x4000;
 	MEM_RAM=0x0000;
 	MEM_ROM=0x8000;
 	memview_memread = memview_memread_nes;
-	//‚±‚±‚Ü‚Åƒƒ‚ƒŠ[ƒrƒ…ƒA[Ý’è
+	//ã“ã“ã¾ã§ãƒ¡ãƒ¢ãƒªãƒ¼ãƒ“ãƒ¥ã‚¢ãƒ¼è¨­å®š
 
 }
 
