@@ -36,6 +36,14 @@ void SONGINFO_SetPlayAddress(SONG_INFO*, Uint v);
 Uint SONGINFO_GetChannel(SONG_INFO*);
 void SONGINFO_SetChannel(SONG_INFO*, Uint v);
 
+struct _SONG_META_TAGS_ {
+	char* title;
+	char* artist;
+	char* copyright;
+	char detail[1024];
+};
+extern struct _SONG_META_TAGS_ songinfodata;
+
 #ifdef __cplusplus
 }
 #endif

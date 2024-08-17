@@ -37,12 +37,7 @@ extern int (*ioview_ioread_DEV_ADPCM  )(int a);
 extern int (*ioview_ioread_DEV_ADPCM2 )(int a);
 extern int (*ioview_ioread_DEV_MSX    )(int a);
 
-static struct {
-	char* title;
-	char* artist;
-	char* copyright;
-	char detail[1024];
-}songinfodata;
+struct _SONG_META_TAGS_ songinfodata;
 
 static int (*memview_memread)(int a);
 

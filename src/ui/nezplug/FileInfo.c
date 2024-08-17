@@ -5,16 +5,9 @@
 #include "IOView.h"
 #include "ChMask.h"
 #include "Dump.h"
+#include "format/songinfo.h"
 
 HINSTANCE instance;
-
-extern struct {
-	char* title;
-	char* artist;
-	char* copyright;
-	char detail[1024];
-}songinfodata;
-
 
 LRESULT CALLBACK DialogProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {

@@ -601,13 +601,6 @@ static void terminate(KSSSEQ *THIS_)
 	XFREE(THIS_);
 }
 
-struct {
-	char* title;
-	char* artist;
-	char* copyright;
-	char detail[1024];
-}songinfodata;
-
 static Uint32 load(NEZ_PLAY *pNezPlay, KSSSEQ *THIS_, Uint8 *pData, Uint32 uSize)
 {
 	Uint32 i, headersize;

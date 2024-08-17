@@ -119,13 +119,6 @@ static KEYINT priolist[] = {
 	{ NULL,			3 },
 };
 
-extern struct {
-	char* title;
-	char* artist;
-	char* copyright;
-	char detail[1024];
-}songinfodata;
-
 extern int (*memview_memread)(int a);
 
 

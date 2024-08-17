@@ -27,12 +27,6 @@
 #define EXTSOUND_FME7	(1 << 5)
 #define EXTSOUND_J86	(1 << 6)	/* JALECO-86 */
 
-static struct {
-	char* title;
-	char* artist;
-	char* copyright;
-	char detail[1024];
-}songinfodata;
 static Uint8 titlebuffer[0x21];
 static Uint8 artistbuffer[0x21];
 static Uint8 copyrightbuffer[0x21];

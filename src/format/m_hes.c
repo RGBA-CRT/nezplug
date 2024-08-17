@@ -78,15 +78,6 @@ struct  HESHES_TAG {
 	Uint8 hesvdc_ADR;
 };
 
-
-static struct {
-	char* title;
-	char* artist;
-	char* copyright;
-	char detail[1024];
-}songinfodata;
-
-
 static Uint32 km6280_exec(struct K6280_Context *ctx, Uint32 cycles)
 {
 	HESHES *THIS_ = (HESHES *)ctx->user;

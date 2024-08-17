@@ -136,12 +136,6 @@ struct  GBRDMG_TAG {
 
 };
 
-static struct {
-	char* title;
-	char* artist;
-	char* copyright;
-	char detail[1024];
-}songinfodata;
 
 
 static Int32 execute(GBRDMG *THIS_)

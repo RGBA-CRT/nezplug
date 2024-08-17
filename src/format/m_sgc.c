@@ -534,12 +534,6 @@ static void terminate(SGCSEQ *THIS_)
 	XFREE(THIS_);
 }
 
-static struct {
-	char* title;
-	char* artist;
-	char* copyright;
-	char detail[1024];
-}songinfodata;
 Uint8 titlebuffer[0x21];
 Uint8 artistbuffer[0x21];
 Uint8 copyrightbuffer[0x21];
