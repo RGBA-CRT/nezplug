@@ -520,7 +520,7 @@ Uint32 exptable_base[] = {
 	1002,
 	1007,
 	1013,
-1018
+	1018
 };
 
 #if STATIC_TABLES
@@ -654,7 +654,9 @@ static void OplTableCalc(KMIF_OPLTABLE *tbl)
 //		logval = (Uint32)((LOG_LIN_BITS - (log(a) / log(2))) * (1 << LOG_BITS));
 
 //		tbl->tll2log_table[i] = (Uint32)((i) * (1 << LOG_BITS) * 0.625 / 10) << 1;
+//		tbl->tll2log_table[i] = (Uint32)((i) * (1 << LOG_BITS) * 0.355 / 10) << 1;
 		tbl->tll2log_table[i] = (Uint32)((1 << (LOG_BITS-5)) * exptable_base[i] * 0.675 ) << 1;
+//		tbl->tll2log_table[i] = (Uint32)((1 << (LOG_BITS-5)) * exptable_base[i] * 0.4 ) << 1;
 //		tbl->tll2log_table[i] = (i * DB0375_TO_LOG(0)) << 1;
 	}
 	for (i = 0; i < (1 << AMTBL_BITS); i++)

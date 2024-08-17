@@ -808,8 +808,8 @@ Extra Device : %s%s%s%s%s"
 		}
 		if (THIS_->extdevice & EXTDEVICE_MSXAUDIO)
 		{
-			//THIS_->sndp[SND_MSXAUDIO] = OPLSoundAlloc(OPL_TYPE_MSXAUDIO);
-			THIS_->sndp[SND_MSXAUDIO] = OPLSoundAlloc(OPL_TYPE_OPL2);
+			THIS_->sndp[SND_MSXAUDIO] = OPLSoundAlloc(OPL_TYPE_MSXAUDIO);
+			//THIS_->sndp[SND_MSXAUDIO] = OPLSoundAlloc(OPL_TYPE_OPL2);
 			if (!THIS_->sndp[SND_MSXAUDIO]) return NESERR_SHORTOFMEMORY;
 			//‚±‚±‚©‚çƒ_ƒ“ƒvİ’è
 			dump_DEV_OPL = dump_DEV_OPL_bf;

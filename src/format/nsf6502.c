@@ -4,6 +4,8 @@
 #include "nsf6502.h"
 #include "songinfo.h"
 
+#include "device/nes/s_apu.h"
+
 /* ------------ */
 /*  km6502 I/F  */
 /* ------------ */
@@ -26,6 +28,16 @@ void NES6502Irq(NEZ_PLAY *pNezPlay)
 {
 	((NSFNSF*)pNezPlay->nsf)->work6502.iRequest |= K6502_INT;
 }
+
+/*
+//DPCM��IRQ�\��p�B�T���v�����O���[�g�̉e�����󂯂��ɁA
+//�����Ȃ�DPCM-IRQ�����邽�߂ɍ쐬�B 0�Ŋ��荞�ݖ���
+void NES6502SetIrqCount(NEZ_PLAY *pNezPlay, Int A)
+{
+	((NSFNSF*)pNezPlay->nsf)->dpcmirq_ct = A;
+}
+*/
+
 #if 0
 static void NES6502Nmi(NEZ_PLAY *pNezPlay)
 {
@@ -40,6 +52,9 @@ Uint NES6502Read(NEZ_PLAY *pNezPlay, Uint A)
 Uint NES6502ReadDma(NEZ_PLAY *pNezPlay, Uint A)
 {
 	((NSFNSF*)pNezPlay->nsf)->work6502.clock++;	/* DMA cycle */
+	if(((NSFNSF*)pNezPlay->nsf)->dpcmirq_ct >= 0){
+		((NSFNSF*)pNezPlay->nsf)->dpcmirq_ct--;
+	}
 	return ((NSFNSF*)pNezPlay->nsf)->work6502.ReadByte[A >> USE_INLINEMMC](pNezPlay, A);
 }
 
@@ -56,10 +71,35 @@ Uint NES6502GetCycles(NEZ_PLAY* pNezPlay)
 static Uint NES6502Execute(NEZ_PLAY *pNezPlay, Uint start_cycles, Uint total_cycles)
 {
 	NSFNSF *nsf = (NSFNSF*)pNezPlay->nsf;
+	//Int32 clb = nsf->work6502.clock;
 	nsf->work6502_start_cycles = start_cycles;
+
 	while (nsf->work6502.clock < total_cycles)
 	{
+		//clb = nsf->work6502.clock;
 		K6502_Exec(&nsf->work6502);
+		/*
+		//DPCM�p IRQ�J�E���^
+		if(nsf->dpcmirq_ct>-65536){
+			clb = nsf->work6502.clock - clb;
+			nsf->dpcmirq_ct -= clb;
+			clb = nsf->work6502.clock;
+			if (nsf->dpcmirq_ct <= 0){
+				nsf->dpcmirq_ct = -65536;
+				nsf->work6502.iRequest |= K6502_INT;
+				((APUSOUND*)nsf->apu)->dpcm.irq_report = 0x80;//���������C���M�����[�����A�������邵���Ȃ� 
+				((APUSOUND*)nsf->apu)->dpcm.key = 0; 
+				((APUSOUND*)nsf->apu)->dpcm.length = 0; 
+			}
+		}
+		if (nsf->work6502.PC == nsf->work6502_BP)
+		{
+			if(nsf->dpcmirq_ct<=-65536 && !(nsf->work6502.iRequest & K6502_INT)){
+				//nsf->work6502.clock = 0;
+				//return 1;
+			}
+		}
+		*/
 		if (nsf->work6502.PC == nsf->work6502_BP)
 		{
 			nsf->work6502.clock = 0;
@@ -67,6 +107,12 @@ static Uint NES6502Execute(NEZ_PLAY *pNezPlay, Uint start_cycles, Uint total_cyc
 		}
 	}
 	nsf->work6502.clock -= total_cycles;
+	/*
+	if (nsf->work6502.PC == nsf->work6502_BP)
+	{
+		return 1;
+	}
+	*/
 	return 0;
 }
 
@@ -270,22 +316,32 @@ static Int32 __fastcall Execute6502(void *pNezPlay)
 	Uint32 cycles;
 	nsf->nsf6502.cleft += nsf->nsf6502.cps;
 	cycles = nsf->nsf6502.cleft >> SHIFT_CPS;
-	if (!nsf->nsf6502.breaked || (!(nsf->work6502.P & I_FLAG) && nsf->work6502.iRequest & IRQ_INT))
+	if (/*nsf->dpcmirq_ct>-65536 || */!nsf->nsf6502.breaked)
 	{
 		nsf->nsf6502.breaked = NES6502Execute((NEZ_PLAY*)pNezPlay, nsf->nsf6502.total_cycles, cycles);
+	}else
+	if (nsf->work6502.iRequest & IRQ_INT || nsf->work6502.PC != 0x4103)
+	{
+		NES6502Execute((NEZ_PLAY*)pNezPlay, nsf->nsf6502.total_cycles, cycles);
 	}
 	nsf->nsf6502.cleft &= (1 << SHIFT_CPS) - 1;
 	nsf->nsf6502.cycles += cycles * 12;
-	if (nsf->nsf6502.cycles > nsf->nsf6502.cpf[nsf->nsf6502.iframe] && nsf->nsf6502.breaked)
+	if (nsf->nsf6502.cycles > nsf->nsf6502.cpf[nsf->nsf6502.iframe])
 	{
+		nsf->vsyncirq_fg = 0x40;
 		nsf->nsf6502.cycles -= nsf->nsf6502.cpf[nsf->nsf6502.iframe];
-		nsf->nsf6502.iframe ^= 1;
-		NSF6502PlaySetup((NEZ_PLAY*)pNezPlay);
+		if (nsf->nsf6502.breaked)
+		{
+			nsf->nsf6502.iframe ^= 1;
+			NSF6502PlaySetup((NEZ_PLAY*)pNezPlay);
+		}
 	}
+	/*
 	if (nsf->nsf6502.cycles >= nsf->nsf6502.cpf[nsf->nsf6502.iframe] * 2)
 	{
 		nsf->nsf6502.cycles = nsf->nsf6502.cpf[nsf->nsf6502.iframe] * 2;
 	}
+	*/
 	nsf->nsf6502.total_cycles += cycles;
 	return 0;
 }
@@ -368,7 +424,9 @@ static void __fastcall NSF6502Reset(void *pNezPlay)
 	nsf->work6502.S = 0xFF;
 	nsf->work6502.P = 0x26;							/* IRZ */
 	nsf->nsf6502.total_cycles = 0;
+	//nsf->dpcmirq_ct = -65536;
 	nsf->work6502.user = pNezPlay;
+	nsf->vsyncirq_fg = 0x40;
 
 #define LIMIT_INIT (2 * 60)	/* 2sec */
 #if LIMIT_INIT

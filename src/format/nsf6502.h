@@ -31,6 +31,7 @@ void NESWriteHandlerInstall(NEZ_PLAY *, NES_WRITE_HANDLER *ph);
 Uint NSF6502Install(NEZ_PLAY*);
 Uint NES6502GetCycles(NEZ_PLAY*);
 void NES6502Irq(NEZ_PLAY*);
+//void NES6502SetIrqCount(NEZ_PLAY *pNezPlay, Int A);
 Uint NES6502ReadDma(NEZ_PLAY*, Uint A);
 Uint NES6502Read(NEZ_PLAY*, Uint A);
 void NES6502Write(NEZ_PLAY*, Uint A, Uint V);

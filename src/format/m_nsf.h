@@ -55,6 +55,8 @@ typedef struct NSFNSF_TAG {
 	void* psgs;
 
 	Uint8 counter2002;		/* Žb’è */
+	Int32 dpcmirq_ct;
+	Uint8 vsyncirq_fg;	/* $4015‚Ì6bit–Ú‚ð—§‚½‚¹‚é‚â‚Â */
 } NSFNSF;
 
 /* NSF player */

@@ -12,6 +12,7 @@
 #define BASECYCLES_AMSTRAD  (2000000)
 #define BASECYCLES_MSX (3579545)
 #define BASECYCLES_NES (21477270)
+#define FME7_VOL 4/5
 
 typedef struct {
 	KMIF_SOUND_DEVICE *psgp;
@@ -23,17 +24,21 @@ static Int32 __fastcall PSGSoundRender(void* pNezPlay)
 	PSGSOUND *psgs = ((NSFNSF*)((NEZ_PLAY*)pNezPlay)->nsf)->psgs;
 	Int32 b[2] = {0, 0};
 	psgs->psgp->synth(psgs->psgp->ctx, b);
-	return b[0];
+	return b[0]*FME7_VOL;
 }
 
 static void __fastcall PSGSoundRender2(void* pNezPlay, Int32 *d)
 {
 	PSGSOUND *psgs = ((NSFNSF*)((NEZ_PLAY*)pNezPlay)->nsf)->psgs;
-	psgs->psgp->synth(psgs->psgp->ctx, d);
+	Int32 b[2] = {0, 0};
+	psgs->psgp->synth(psgs->psgp->ctx, b);
+	d[0] += b[0]*FME7_VOL;
+	d[1] += b[0]*FME7_VOL;
 }
 
 const static NES_AUDIO_HANDLER s_psg_audio_handler[] = {
-	{ 3, PSGSoundRender, PSGSoundRender2, }, 
+	{ 1, PSGSoundRender}, 
+//	{ 3, PSGSoundRender, PSGSoundRender2, }, 
 	{ 0, 0, 0, }, 
 };
 

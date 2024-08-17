@@ -17,9 +17,10 @@
 #define REAL_OFS_BASE 200000
 #define REAL_OFS_COUNT 16
 #define RENDERS 4
-#define NAMCO106_VOL 3/2
+#define NAMCO106_VOL Namco106_Volume/16
 #define CPSF_SHIFT 4
 int Namco106_Realmode = 0;
+int Namco106_Volume = 16;
 
 typedef struct {
 	Uint32 logvol;

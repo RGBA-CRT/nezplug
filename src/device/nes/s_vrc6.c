@@ -6,6 +6,7 @@
 #include "logtable.h"
 #include "../../format/m_nsf.h"
 #include "s_vrc6.h"
+//#include <stdio.h>
 
 #define NES_BASECYCLES (21477270)
 #define CPS_SHIFT 16
@@ -171,9 +172,15 @@ const static NES_VOLUME_HANDLER s_vrc6_volume_handler[] = {
 
 static void __fastcall VRC6SoundWrite9000(void *pNezPlay, Uint address, Uint value)
 {
-	VRC6SOUND *vrc6s = ((NSFNSF*)((NEZ_PLAY*)pNezPlay)->nsf)->vrc6s;
-	vrc6s->square[0].regs[address & 3] = (Uint8)value;
-	vrc6s->square[0].update |= 1 << (address & 3); 
+	//FILE *f;
+	if(address >=0x9000 && address <= 0x9002){//‚È‚µ‚Ä9010E9030‘‚¢‚½‚Æ‚«‚à‚±‚±’Ê‚Á‚Ä‚ñ‚¾‚×H
+		VRC6SOUND *vrc6s = ((NSFNSF*)((NEZ_PLAY*)pNezPlay)->nsf)->vrc6s;
+		vrc6s->square[0].regs[address & 3] = (Uint8)value;
+		vrc6s->square[0].update |= 1 << (address & 3); 
+	}
+	//f=fopen("R:\\debug.out","a+");
+	//fprintf(f,"%04X: %02X\r\n",address, value);
+	//fclose(f);
 }
 static void __fastcall VRC6SoundWriteA000(void *pNezPlay, Uint address, Uint value)
 {
