@@ -4,7 +4,7 @@
 #include "nsf6502.h"
 #include "songinfo.h"
 
-#include "device\nes\s_apu.h"
+#include "device/nes/s_apu.h"
 
 /* ------------ */
 /*  km6502 I/F  */
@@ -30,8 +30,8 @@ void NES6502Irq(NEZ_PLAY *pNezPlay)
 }
 
 /*
-//DPCM‚ÌIRQ—\–ñ—pBƒTƒ“ƒvƒŠƒ“ƒOƒŒ[ƒg‚Ì‰e‹¿‚ðŽó‚¯‚¸‚ÉA
-//‹¶‚¢‚È‚­DPCM-IRQ‚ð“ü‚ê‚é‚½‚ß‚Éì¬B 0‚ÅŠ„‚èž‚Ý–³‚µ
+//DPCMï¿½ï¿½IRQï¿½\ï¿½ï¿½pï¿½Bï¿½Tï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½[ï¿½gï¿½Ì‰eï¿½ï¿½ï¿½ï¿½ï¿½ó‚¯‚ï¿½ï¿½ÉA
+//ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½DPCM-IRQï¿½ï¿½ï¿½ï¿½ï¿½é‚½ï¿½ß‚Éì¬ï¿½B 0ï¿½ÅŠï¿½ï¿½èžï¿½Ý–ï¿½ï¿½ï¿½
 void NES6502SetIrqCount(NEZ_PLAY *pNezPlay, Int A)
 {
 	((NSFNSF*)pNezPlay->nsf)->dpcmirq_ct = A;
@@ -79,7 +79,7 @@ static Uint NES6502Execute(NEZ_PLAY *pNezPlay, Uint start_cycles, Uint total_cyc
 		//clb = nsf->work6502.clock;
 		K6502_Exec(&nsf->work6502);
 		/*
-		//DPCM—p IRQƒJƒEƒ“ƒ^
+		//DPCMï¿½p IRQï¿½Jï¿½Eï¿½ï¿½ï¿½^
 		if(nsf->dpcmirq_ct>-65536){
 			clb = nsf->work6502.clock - clb;
 			nsf->dpcmirq_ct -= clb;
@@ -87,7 +87,7 @@ static Uint NES6502Execute(NEZ_PLAY *pNezPlay, Uint start_cycles, Uint total_cyc
 			if (nsf->dpcmirq_ct <= 0){
 				nsf->dpcmirq_ct = -65536;
 				nsf->work6502.iRequest |= K6502_INT;
-				((APUSOUND*)nsf->apu)->dpcm.irq_report = 0x80;//‚·‚Á‚°‚¥ƒCƒŒƒMƒ…ƒ‰[‚¾‚ªA‚±‚¤‚·‚é‚µ‚©‚È‚¢ 
+				((APUSOUND*)nsf->apu)->dpcm.irq_report = 0x80;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Mï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é‚µï¿½ï¿½ï¿½È‚ï¿½ 
 				((APUSOUND*)nsf->apu)->dpcm.key = 0; 
 				((APUSOUND*)nsf->apu)->dpcm.length = 0; 
 			}
