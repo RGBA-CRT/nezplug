@@ -94,7 +94,9 @@ set(src_list
 	${BASE_DIR}/src/zlib/zutil.c
 )
 # Add an executable
-add_library(${TARGET_NAME} SHARED ${src_list})
+add_library(${TARGET_NAME} SHARED 
+	${src_list}
+	${BASE_DIR}/src/common/nsfsdk/npnez.def)
 
 target_link_libraries(${TARGET_NAME} PRIVATE comdlg32 )
 target_include_directories(${TARGET_NAME} PRIVATE ${BASE_DIR}/src)

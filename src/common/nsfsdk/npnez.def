@@ -13,3 +13,12 @@ EXPORTS
 	NSFSDK_GetSongStart
 	NSFSDK_GetSongMax
 	NSFSDK_GetChannel
+	NSFSDK_GetFrequency
+	NSFSDK_GetFileInfo
+	NSFSDK_OpenFileInfoDlg
+	NSFSDK_OpenMemViewDlg
+	NSFSDK_OpenChMaskDlg
+	NSFSDK_OpenIOViewDlg
+	NSFSDK_OpenDumpDlg
+	NSFSDK_LoadSetting
+	NSFSDK_IORead

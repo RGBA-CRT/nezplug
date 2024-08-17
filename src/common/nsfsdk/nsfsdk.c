@@ -275,3 +275,8 @@ void NSFSDKAPI NSFSDK_LoadSetting(HNSF hnsf, char *file)
 
 }
 
+int NSFSDKAPI NSFSDK_IORead(int deviceNum, int address)
+{
+	extern int ioview_ioread(int devicenum, int address);
+	return ioview_ioread(deviceNum, address);
+}
