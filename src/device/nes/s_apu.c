@@ -1137,9 +1137,18 @@ const static NES_TERMINATE_HANDLER s_apu_terminate_handler[] = {
 
 //ここからレジスタビュアー設定
 Uint8 *regdata_2a03;
+NESAPU_DPCM *dpcm_internal_2a03;
 Uint32 (*ioview_ioread_DEV_2A03)(Uint32 a);
 static Uint32 ioview_ioread_bf(Uint32 a){
-	if(a<=0x17)return regdata_2a03[a];else return 0x100;
+	if(a<=0x17) {
+		return regdata_2a03[a];
+	} else if (a<=0x18) {
+		return (Uint32)((dpcm_internal_2a03->adr >> 8) & 0xFF);
+	} else if (a<=0x19) {
+		return (Uint32)((dpcm_internal_2a03->adr) & 0xFF);
+	} else {
+		return 0x100;
+	}
 }
 //ここまでレジスタビュアー設定
 
@@ -1162,6 +1171,7 @@ void APUSoundInstall(NEZ_PLAY *pNezPlay)
 
 	//ここからレジスタビュアー設定
 	regdata_2a03 = apu->regs;
+	dpcm_internal_2a03 = &apu->dpcm;
 	ioview_ioread_DEV_2A03 = ioview_ioread_bf;
 	//ここまでレジスタビュアー設定
 }
