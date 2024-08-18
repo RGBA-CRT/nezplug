@@ -107,14 +107,18 @@ endif()
 add_library(${TARGET_NAME} SHARED ${src_list} ${extra_srcs})
 
 target_link_options(${TARGET_NAME} PUBLIC LINKER:-Map=${TARGET_NAME}.map)
+
+# 大きなグローバルバッファ変数の影響でbssセクションが膨らみバイナリサイズが増えてしまう
 # target_link_options(${TARGET_NAME} PUBLIC LINKER:-fcommon -fno-zero-initialized-in-bss)
 # target_compile_options(${TARGET_NAME} PUBLIC -fcommon -fno-zero-initialized-in-bss -v)
-# ちなみに↑は効かなかった。でかいグローバル変数のせいでbssセクションが膨らみ、サイズがVC6比で増えてしまっている。
+# ↑は効かなかった。グローバル変数を削除した。
 
-# target_link_options(${TARGET_NAME} PUBLIC LINKER:--gc-sections)
-# target_compile_options(${TARGET_NAME} PUBLIC -ffunction-sections -fdata-sections)
+# eh_handlerなどを削除する。十分に枯れているので大丈夫でしょう。
 target_compile_options(${TARGET_NAME} PUBLIC -fomit-frame-pointer -fno-exceptions -fno-asynchronous-unwind-tables)
 target_link_options(${TARGET_NAME} PUBLIC LINKER:-fomit-frame-pointer -fno-exceptions -fno-asynchronous-unwind-tables)
+
+target_link_options(${TARGET_NAME} PUBLIC LINKER: -static-libgcc)
+target_link_options(${TARGET_NAME} PUBLIC LINKER: -Wl,-cref)
 
 target_link_libraries(${TARGET_NAME} PRIVATE comdlg32 )
 target_include_directories(${TARGET_NAME} PRIVATE ${BASE_DIR}/src)

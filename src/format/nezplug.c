@@ -37,7 +37,7 @@ extern int (*ioview_ioread_DEV_ADPCM  )(int a);
 extern int (*ioview_ioread_DEV_ADPCM2 )(int a);
 extern int (*ioview_ioread_DEV_MSX    )(int a);
 
-struct _SONG_META_TAGS_ songinfodata;
+struct _SONG_META_TAGS_ songinfodata ={.detail={"dummy"}};
 
 static int (*memview_memread)(int a);
 

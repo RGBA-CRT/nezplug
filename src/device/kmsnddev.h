@@ -25,8 +25,8 @@ typedef struct {
 #endif
 } KMIF_SOUND_DEVICE;
 
-//�`�����l���}�X�N�p
-enum{//���Ԃ�ς����狰�낵�����ƂɂȂ�
+//チャンネルマスク用
+enum{//順番を変えたら恐ろしいことになる
 	DEV_2A03_SQ1,
 	DEV_2A03_SQ2,
 	DEV_2A03_TR,

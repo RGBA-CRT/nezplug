@@ -23,6 +23,7 @@ npnez.dllのビルドが目的で、winamp, kbmedia player向けPluginのビル�
 邪道な改造をいくつか
 - 各種レジスタを外から読める関数 NSFSDK_IORead を追加
 - 2A03のDPCMの読み込み位置が取得できる（NSFSDK_IORead）
+- 文字コードをUTF-8に変換
 - bssセクション削減のためいくつかのグローバル変数バッファをheapから取得するように
 
 # 謝辞
