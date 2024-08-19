@@ -25,6 +25,7 @@ npnez.dllのビルドが目的で、winamp, kbmedia player向けPluginのビル�
 - 2A03のDPCMの読み込み位置が取得できる（NSFSDK_IORead）
 - 文字コードをUTF-8に変換
 - bssセクション削減のためいくつかのグローバル変数バッファをheapから取得するように
+- https://wikiwiki.jp/mck/NSF%E3%83%97%E3%83%AC%E3%82%A4%E3%83%A4%E3%83%BC#x7976863 のdpcm_irq.zip/op20-13d.nsfがうまく再生されない問題を修正
 
 # 謝辞
 この場を借りて素晴らしいソフトウェアを作成・改良されたMamiya氏, RurRuRu氏, Offgao氏に敬意を表します。
