@@ -306,7 +306,7 @@ static void NSF6502PlaySetup(NEZ_PLAY *pNezPlay)
 		nsf->work6502.PC = 0x4100;
 		nsf->work6502.A = 0x00;
 		nsf->work6502.S = 0xFF;
-		nsf->work6502.P = 0x26							/* IRZ */;
+		nsf->work6502.P = 0x22							/* RZ */;
 	}
 }
 
