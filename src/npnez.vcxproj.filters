@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ui">
+      <UniqueIdentifier>{47f9cbd8-af40-4261-b347-e0e501239bfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui\hsp">
+      <UniqueIdentifier>{794097c9-229a-4d86-9240-14644b00188c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="win32">
+      <UniqueIdentifier>{0260f987-df6a-48e2-93cc-5a2a8beafea7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nsfsdk">
+      <UniqueIdentifier>{dd1e50c7-7473-47bc-8c43-eb700ce17d5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="snddrv">
+      <UniqueIdentifier>{932d6ff8-b8e2-415a-bdcb-d8c9f36a4656}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ui\hsp\hspnez.c">
+      <Filter>ui\hsp</Filter>
+    </ClCompile>
+    <ClCompile Include="common\win32\csowin32.c">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="common\win32\win32dll.c">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="common\nsfsdk\nsfsdk.c">
+      <Filter>nsfsdk</Filter>
+    </ClCompile>
+    <ClCompile Include="snddrv\snddrv.c">
+      <Filter>snddrv</Filter>
+    </ClCompile>
+    <ClCompile Include="snddrv\win32\snddrvds.c">
+      <Filter>snddrv</Filter>
+    </ClCompile>
+    <ClCompile Include="snddrv\win32\snddrvwo.c">
+      <Filter>snddrv</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui\hsp\npnez.def">
+      <Filter>ui\hsp</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="common\cso.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="common\win32\win32l.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="common\nsfsdk\nsfsdk.h">
+      <Filter>nsfsdk</Filter>
+    </ClInclude>
+    <ClInclude Include="snddrv\snddrv.h">
+      <Filter>snddrv</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

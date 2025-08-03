@@ -1,0 +1,413 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="cpu">
+      <UniqueIdentifier>{23927667-0f39-4d3d-b56c-fb2af1b918c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpu\6502">
+      <UniqueIdentifier>{9a037984-847c-487b-8c86-1738e7f9661b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpu\z80">
+      <UniqueIdentifier>{43827785-c78f-4397-abe1-6f79c59b5ea6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="device">
+      <UniqueIdentifier>{689e2d72-a66f-45fb-9fcd-0878b6d82fb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="device\nes">
+      <UniqueIdentifier>{ddb5eb32-d0a1-4e8a-910f-88eb407e81d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="device\opll">
+      <UniqueIdentifier>{39ff5e3f-c4e4-4178-8c91-31606f105993}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="format">
+      <UniqueIdentifier>{ffd6e881-6ff4-4237-b67c-7546bf6ce04a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="zlib">
+      <UniqueIdentifier>{d7919307-c77d-40ab-bea7-3c21f1d93440}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui">
+      <UniqueIdentifier>{0a888bab-926e-4343-9375-2fbaf5b8d713}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cpu\km6502\km6280.h">
+      <Filter>cpu\6502</Filter>
+    </ClInclude>
+    <ClInclude Include="cpu\km6502\km6280m.h">
+      <Filter>cpu\6502</Filter>
+    </ClInclude>
+    <ClInclude Include="cpu\km6502\km6502.h">
+      <Filter>cpu\6502</Filter>
+    </ClInclude>
+    <ClInclude Include="cpu\km6502\km6502cd.h">
+      <Filter>cpu\6502</Filter>
+    </ClInclude>
+    <ClInclude Include="cpu\km6502\km6502ct.h">
+      <Filter>cpu\6502</Filter>
+    </ClInclude>
+    <ClInclude Include="cpu\km6502\km6502ex.h">
+      <Filter>cpu\6502</Filter>
+    </ClInclude>
+    <ClInclude Include="cpu\km6502\km6502ft.h">
+      <Filter>cpu\6502</Filter>
+    </ClInclude>
+    <ClInclude Include="cpu\km6502\km6502m.h">
+      <Filter>cpu\6502</Filter>
+    </ClInclude>
+    <ClInclude Include="cpu\km6502\km6502ot.h">
+      <Filter>cpu\6502</Filter>
+    </ClInclude>
+    <ClInclude Include="cpu\km6502\km65c02.h">
+      <Filter>cpu\6502</Filter>
+    </ClInclude>
+    <ClInclude Include="cpu\km6502\km65c02m.h">
+      <Filter>cpu\6502</Filter>
+    </ClInclude>
+    <ClInclude Include="cpu\km6502\kmconfig.h">
+      <Filter>cpu\6502</Filter>
+    </ClInclude>
+    <ClInclude Include="cpu\kmz80\kmevent.h">
+      <Filter>cpu\z80</Filter>
+    </ClInclude>
+    <ClInclude Include="cpu\kmz80\kmtypes.h">
+      <Filter>cpu\z80</Filter>
+    </ClInclude>
+    <ClInclude Include="cpu\kmz80\kmz80.h">
+      <Filter>cpu\z80</Filter>
+    </ClInclude>
+    <ClInclude Include="cpu\kmz80\kmz80i.h">
+      <Filter>cpu\z80</Filter>
+    </ClInclude>
+    <ClInclude Include="device\divfix.h">
+      <Filter>device</Filter>
+    </ClInclude>
+    <ClInclude Include="device\kmsnddev.h">
+      <Filter>device</Filter>
+    </ClInclude>
+    <ClInclude Include="device\s_dmg.h">
+      <Filter>device</Filter>
+    </ClInclude>
+    <ClInclude Include="device\s_hes.h">
+      <Filter>device</Filter>
+    </ClInclude>
+    <ClInclude Include="device\s_hesad.h">
+      <Filter>device</Filter>
+    </ClInclude>
+    <ClInclude Include="device\s_logtbl.h">
+      <Filter>device</Filter>
+    </ClInclude>
+    <ClInclude Include="device\s_psg.h">
+      <Filter>device</Filter>
+    </ClInclude>
+    <ClInclude Include="device\s_scc.h">
+      <Filter>device</Filter>
+    </ClInclude>
+    <ClInclude Include="device\s_sng.h">
+      <Filter>device</Filter>
+    </ClInclude>
+    <ClInclude Include="device\nes\logtable.h">
+      <Filter>device\nes</Filter>
+    </ClInclude>
+    <ClInclude Include="device\nes\s_apu.h">
+      <Filter>device\nes</Filter>
+    </ClInclude>
+    <ClInclude Include="device\nes\s_fds.h">
+      <Filter>device\nes</Filter>
+    </ClInclude>
+    <ClInclude Include="device\nes\s_fme7.h">
+      <Filter>device\nes</Filter>
+    </ClInclude>
+    <ClInclude Include="device\nes\s_mmc5.h">
+      <Filter>device\nes</Filter>
+    </ClInclude>
+    <ClInclude Include="device\nes\s_n106.h">
+      <Filter>device\nes</Filter>
+    </ClInclude>
+    <ClInclude Include="device\nes\s_vrc6.h">
+      <Filter>device\nes</Filter>
+    </ClInclude>
+    <ClInclude Include="device\nes\s_vrc7.h">
+      <Filter>device\nes</Filter>
+    </ClInclude>
+    <ClInclude Include="device\opl\s_deltat.h">
+      <Filter>device\opll</Filter>
+    </ClInclude>
+    <ClInclude Include="device\opl\s_opl.h">
+      <Filter>device\opll</Filter>
+    </ClInclude>
+    <ClInclude Include="device\opl\s_opltbl.h">
+      <Filter>device\opll</Filter>
+    </ClInclude>
+    <ClInclude Include="format\audiohandler.h">
+      <Filter>format</Filter>
+    </ClInclude>
+    <ClInclude Include="format\audiosys.h">
+      <Filter>format</Filter>
+    </ClInclude>
+    <ClInclude Include="format\handler.h">
+      <Filter>format</Filter>
+    </ClInclude>
+    <ClInclude Include="format\m_gbr.h">
+      <Filter>format</Filter>
+    </ClInclude>
+    <ClInclude Include="format\m_hes.h">
+      <Filter>format</Filter>
+    </ClInclude>
+    <ClInclude Include="format\m_kss.h">
+      <Filter>format</Filter>
+    </ClInclude>
+    <ClInclude Include="format\m_nsd.h">
+      <Filter>format</Filter>
+    </ClInclude>
+    <ClInclude Include="format\m_nsf.h">
+      <Filter>format</Filter>
+    </ClInclude>
+    <ClInclude Include="format\m_zxay.h">
+      <Filter>format</Filter>
+    </ClInclude>
+    <ClInclude Include="format\nsf6502.h">
+      <Filter>format</Filter>
+    </ClInclude>
+    <ClInclude Include="format\songinfo.h">
+      <Filter>format</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\crc32.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\inffast.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\inffixed.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\inflate.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\inftrees.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\memzip.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\nez.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\nezuzext.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\zconf.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\zlib.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\zutil.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="neserr.h" />
+    <ClInclude Include="nestypes.h" />
+    <ClInclude Include="nezplug.h" />
+    <ClInclude Include="ui\version.h" />
+    <ClInclude Include="ui\nezplug\ChMask.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\nezplug\Dialog.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\nezplug\Dump.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\nezplug\FileInfo.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\nezplug\IOView.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\nezplug\MemView.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\nezplug\resource.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="cpu\kmz80\kmdmg.c">
+      <Filter>cpu\z80</Filter>
+    </ClCompile>
+    <ClCompile Include="cpu\kmz80\kmevent.c">
+      <Filter>cpu\z80</Filter>
+    </ClCompile>
+    <ClCompile Include="cpu\kmz80\kmr800.c">
+      <Filter>cpu\z80</Filter>
+    </ClCompile>
+    <ClCompile Include="cpu\kmz80\kmz80.c">
+      <Filter>cpu\z80</Filter>
+    </ClCompile>
+    <ClCompile Include="cpu\kmz80\kmz80c.c">
+      <Filter>cpu\z80</Filter>
+    </ClCompile>
+    <ClCompile Include="cpu\kmz80\kmz80t.c">
+      <Filter>cpu\z80</Filter>
+    </ClCompile>
+    <ClCompile Include="cpu\kmz80\makeft.c">
+      <Filter>cpu\z80</Filter>
+    </ClCompile>
+    <ClCompile Include="device\s_dmg.c">
+      <Filter>device</Filter>
+    </ClCompile>
+    <ClCompile Include="device\s_hes.c">
+      <Filter>device</Filter>
+    </ClCompile>
+    <ClCompile Include="device\s_hesad.c">
+      <Filter>device</Filter>
+    </ClCompile>
+    <ClCompile Include="device\s_logtbl.c">
+      <Filter>device</Filter>
+    </ClCompile>
+    <ClCompile Include="device\s_psg.c">
+      <Filter>device</Filter>
+    </ClCompile>
+    <ClCompile Include="device\s_scc.c">
+      <Filter>device</Filter>
+    </ClCompile>
+    <ClCompile Include="device\s_sng.c">
+      <Filter>device</Filter>
+    </ClCompile>
+    <ClCompile Include="device\nes\logtable.c">
+      <Filter>device\nes</Filter>
+    </ClCompile>
+    <ClCompile Include="device\nes\s_apu.c">
+      <Filter>device\nes</Filter>
+    </ClCompile>
+    <ClCompile Include="device\nes\s_fds.c">
+      <Filter>device\nes</Filter>
+    </ClCompile>
+    <ClCompile Include="device\nes\s_fds1.c">
+      <Filter>device\nes</Filter>
+    </ClCompile>
+    <ClCompile Include="device\nes\s_fds2.c">
+      <Filter>device\nes</Filter>
+    </ClCompile>
+    <ClCompile Include="device\nes\s_fds3.c">
+      <Filter>device\nes</Filter>
+    </ClCompile>
+    <ClCompile Include="device\nes\s_fme7.c">
+      <Filter>device\nes</Filter>
+    </ClCompile>
+    <ClCompile Include="device\nes\s_mmc5.c">
+      <Filter>device\nes</Filter>
+    </ClCompile>
+    <ClCompile Include="device\nes\s_n106.c">
+      <Filter>device\nes</Filter>
+    </ClCompile>
+    <ClCompile Include="device\nes\s_vrc6.c">
+      <Filter>device\nes</Filter>
+    </ClCompile>
+    <ClCompile Include="device\nes\s_vrc7.c">
+      <Filter>device\nes</Filter>
+    </ClCompile>
+    <ClCompile Include="device\opl\s_deltat.c">
+      <Filter>device\opll</Filter>
+    </ClCompile>
+    <ClCompile Include="device\opl\s_opl.c">
+      <Filter>device\opll</Filter>
+    </ClCompile>
+    <ClCompile Include="device\opl\s_opltbl.c">
+      <Filter>device\opll</Filter>
+    </ClCompile>
+    <ClCompile Include="format\audiosys.c">
+      <Filter>format</Filter>
+    </ClCompile>
+    <ClCompile Include="format\handler.c">
+      <Filter>format</Filter>
+    </ClCompile>
+    <ClCompile Include="format\m_gbr.c">
+      <Filter>format</Filter>
+    </ClCompile>
+    <ClCompile Include="format\m_hes.c">
+      <Filter>format</Filter>
+    </ClCompile>
+    <ClCompile Include="format\m_kss.c">
+      <Filter>format</Filter>
+    </ClCompile>
+    <ClCompile Include="format\m_nsd.c">
+      <Filter>format</Filter>
+    </ClCompile>
+    <ClCompile Include="format\m_nsf.c">
+      <Filter>format</Filter>
+    </ClCompile>
+    <ClCompile Include="format\m_zxay.c">
+      <Filter>format</Filter>
+    </ClCompile>
+    <ClCompile Include="format\nezplug.c">
+      <Filter>format</Filter>
+    </ClCompile>
+    <ClCompile Include="format\nsf6502.c">
+      <Filter>format</Filter>
+    </ClCompile>
+    <ClCompile Include="format\songinfo.c">
+      <Filter>format</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\adler32.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\crc32.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\inffast.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\inflate.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\inftrees.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\memzip.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\nez.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\uncompr.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\zutil.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\nezplug\ChMask.c">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\nezplug\Dialog.c">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\nezplug\Dump.c">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\nezplug\FileInfo.c">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\nezplug\IOView.c">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\nezplug\MemView.c">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="format\dumper.c">
+      <Filter>format</Filter>
+    </ClCompile>
+    <ClCompile Include="format\m_sgc.c">
+      <Filter>format</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui\nezplug\nezplug.aps">
+      <Filter>ui</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ui\nezplug\nezplug.rc">
+      <Filter>ui</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

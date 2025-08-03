@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ui">
+      <UniqueIdentifier>{f84bea0a-328e-42c0-97b8-1b9fe798f1b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui\winamp">
+      <UniqueIdentifier>{2fddb4d3-6cd7-462a-85f5-cf686f11f386}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui\winamp\minisdk">
+      <UniqueIdentifier>{76104e86-b5cd-400c-a4c7-7e8881962e35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="win32">
+      <UniqueIdentifier>{93c8a573-96b3-4e8b-bf80-1f4c5b790476}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ui\winamp\con_nez.c">
+      <Filter>ui\winamp</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\winamp\in_nez.c">
+      <Filter>ui\winamp</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\winamp\MemView.c">
+      <Filter>ui\winamp</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\winamp\seq_nez.c">
+      <Filter>ui\winamp</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\winamp\SongInfo.c">
+      <Filter>ui\winamp</Filter>
+    </ClCompile>
+    <ClCompile Include="common\win32\csowin32.c">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="common\win32\win32dll.c">
+      <Filter>win32</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ui\winamp\con_nez.h">
+      <Filter>ui\winamp</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\winamp\in_nez.h">
+      <Filter>ui\winamp</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\winamp\in_xxx.h">
+      <Filter>ui\winamp</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\winamp\MemView.h">
+      <Filter>ui\winamp</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\winamp\resource.h">
+      <Filter>ui\winamp</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\winamp\sequencer.h">
+      <Filter>ui\winamp</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\winamp\SongInfo.h">
+      <Filter>ui\winamp</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\winamp\minisdk\In2.h">
+      <Filter>ui\winamp\minisdk</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\winamp\minisdk\Out.h">
+      <Filter>ui\winamp\minisdk</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\winamp\minisdk\wafe.h">
+      <Filter>ui\winamp\minisdk</Filter>
+    </ClInclude>
+    <ClInclude Include="common\cso.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="common\win32\win32l.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui\winamp\in_nez.def">
+      <Filter>ui\winamp</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ui\winamp\nezplug.rc">
+      <Filter>ui\winamp</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

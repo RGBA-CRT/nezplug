@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ui">
+      <UniqueIdentifier>{4831f956-9fa2-400e-a53f-ae670c2d7935}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui\kmp">
+      <UniqueIdentifier>{726bc3e3-5963-46e8-a469-772ae3820368}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="win32">
+      <UniqueIdentifier>{4cb09760-f110-4687-ab88-a900e6c495bb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ui\kmp\kmp_com.c">
+      <Filter>ui\kmp</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\kmp\kpinez.c">
+      <Filter>ui\kmp</Filter>
+    </ClCompile>
+    <ClCompile Include="common\win32\win32dll.c">
+      <Filter>win32</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui\kmp\kmp_com.def">
+      <Filter>ui\kmp</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ui\kmp\kmp_com.h">
+      <Filter>ui\kmp</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\kmp\kmp_pi.h">
+      <Filter>ui\kmp</Filter>
+    </ClInclude>
+    <ClInclude Include="common\win32\win32l.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
