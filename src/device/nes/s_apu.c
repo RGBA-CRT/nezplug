@@ -361,15 +361,18 @@ static Int32 NESAPUSoundSquareRender(NESAPU_SQUARE *ch)
 				ch->output = -LogToLinear(ch->output, LOG_LIN_BITS - LIN_BITS - 9 + VOL_SHIFT) * SQ_VOL;
 			}
 			else
-*/				while (ch->pt >= ((ch->wl + 1) << CPS_BITS))
+*/
+			Uint32 loop_dst = ((ch->wl + 1) << CPS_BITS);
+			const Uint32 SQ_RENDERS_CNT = (1 << (SQUARE_RENDERS + 1));
+			while (ch->pt >= loop_dst)
 				{
 					outputbuf += ch->output;
 					count++;
 
-					ch->pt -= ((ch->wl + 1) << CPS_BITS);
+					ch->pt -= loop_dst;
 
 					ch->ct++;
-					if(ch->ct >= (1<<(SQUARE_RENDERS+1))){
+					if(ch->ct >= SQ_RENDERS_CNT){
 						ch->ct = 0;
 						ch->st = (ch->st + 1) & 0x7;
 
