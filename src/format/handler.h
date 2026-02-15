@@ -18,6 +18,7 @@ typedef struct NES_RESET_HANDLER_TAG {
 #define NES_RESET_SYS_FIRST 4
 #define NES_RESET_SYS_NOMAL 8
 #define NES_RESET_SYS_LAST 12
+#define NES_RESET_SPECIAL_CHANGE_FREQ 11
 
 typedef struct NES_TERMINATE_HANDLER_TAG {
 	TERMINATEHANDLER Proc;
@@ -25,6 +26,7 @@ typedef struct NES_TERMINATE_HANDLER_TAG {
 } NES_TERMINATE_HANDLER;
 
 void NESReset(void*);
+void NESSpecialReset(void *pNezPlay, Uint priority);
 void NESResetHandlerInstall(NES_RESET_HANDLER**, const NES_RESET_HANDLER *ph);
 void NESTerminate(void*);
 void NESTerminateHandlerInstall(NES_TERMINATE_HANDLER**, const NES_TERMINATE_HANDLER *ph);

@@ -188,6 +188,13 @@ static Uint8 *ZXAYOffset(Uint8 *p)
 	return p + ofs - 0x8000;
 }
 
+static void __fastcall kss_cps_update(void *vpNezPlay){
+	NEZ_PLAY *pNezPlay = (NEZ_PLAY*)vpNezPlay;
+	Uint32 freq = NESAudioFrequencyGet(pNezPlay);
+	ZXAY *THIS_ = pNezPlay->zxay;
+	THIS_->cps = DivFix(ZX_BASECYCLES, freq, SHIFT_CPS);
+}
+
 static void reset(NEZ_PLAY *pNezPlay)
 {
 	ZXAY *THIS_ = pNezPlay->zxay;
@@ -413,6 +420,7 @@ static void __fastcall ZXAYReset(void *pNezPlay)
 
 const static NES_RESET_HANDLER zxay_reset_handler[] = {
 	{ NES_RESET_SYS_LAST, ZXAYReset, },
+	{ NES_RESET_SPECIAL_CHANGE_FREQ, kss_cps_update, },
 	{ 0,                  0, },
 };
 

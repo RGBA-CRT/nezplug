@@ -466,6 +466,13 @@ static Uint32 dump_DEV_ADPCM_bf(Uint32 menu,unsigned char* mem){
 }
 //----------
 
+static void __fastcall hes_cps_update(void *vpNezPlay){
+	NEZ_PLAY *pNezPlay = (NEZ_PLAY*)vpNezPlay;
+	Uint32 freq = NESAudioFrequencyGet(pNezPlay);
+	HESHES *THIS_ = pNezPlay->heshes;
+	THIS_->cps = DivFix(HES_BASECYCLES, freq, SHIFT_CPS);
+}
+
 static void reset(NEZ_PLAY *pNezPlay)
 {
 	HESHES *THIS_ = pNezPlay->heshes;
@@ -738,6 +745,7 @@ static void __fastcall HESHESReset(void *pNezPlay)
 
 const static NES_RESET_HANDLER heshes_reset_handler[] = {
 	{ NES_RESET_SYS_LAST, HESHESReset, },
+	{ NES_RESET_SPECIAL_CHANGE_FREQ, hes_cps_update, },
 	{ 0,                  0, },
 };
 

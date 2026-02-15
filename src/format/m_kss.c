@@ -465,7 +465,12 @@ static Uint32 dump_DEV_ADPCM_bf(Uint32 menu,unsigned char* mem){
 }
 //----------
 
-
+static void __fastcall kss_cps_update(void *vpNezPlay){
+	NEZ_PLAY *pNezPlay = (NEZ_PLAY*)vpNezPlay;
+	Uint32 freq = NESAudioFrequencyGet(pNezPlay);
+	KSSSEQ *THIS_ = pNezPlay->kssseq;
+	THIS_->cps = DivFix(BASECYCLES, freq, SHIFT_CPS);
+}
 
 static void reset(NEZ_PLAY *pNezPlay)
 {
@@ -876,6 +881,7 @@ static void __fastcall KSSSEQReset(void *pNezPlay)
 
 const static NES_RESET_HANDLER kssseq_reset_handler[] = {
 	{ NES_RESET_SYS_LAST, KSSSEQReset, },
+	{ NES_RESET_SPECIAL_CHANGE_FREQ, kss_cps_update, },
 	{ 0,                  0, },
 };
 

@@ -353,6 +353,13 @@ static Uint32 dump_DEV_OPLL_bf(Uint32 menu,unsigned char* mem){
 
 
 
+static void __fastcall sgc_cps_update(void *vpNezPlay){
+	NEZ_PLAY *pNezPlay = (NEZ_PLAY*)vpNezPlay;
+	Uint32 freq = NESAudioFrequencyGet(pNezPlay);
+	SGCSEQ *THIS_ = pNezPlay->sgcseq;
+	THIS_->cps = DivFix(BASECYCLES, freq, SHIFT_CPS);
+}
+
 static void reset(NEZ_PLAY *pNezPlay)
 {
 	SGCSEQ *THIS_ = pNezPlay->sgcseq;
@@ -762,6 +769,7 @@ static void __fastcall SGCSEQReset(void *pNezPlay)
 
 const static NES_RESET_HANDLER sgcseq_reset_handler[] = {
 	{ NES_RESET_SYS_LAST, SGCSEQReset, },
+	{ NES_RESET_SPECIAL_CHANGE_FREQ, sgc_cps_update, },
 	{ 0,                  0, },
 };
 

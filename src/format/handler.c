@@ -13,6 +13,13 @@ void NESReset(void *pNezPlay)
 	for (prio = 0; prio < 0x10; prio++)
 		for (ph = ((NEZ_PLAY*)pNezPlay)->nrh[prio]; ph; ph = ph->next) ph->Proc(pNezPlay);
 }
+
+void NESSpecialReset(void *pNezPlay, Uint priority){
+	NES_RESET_HANDLER *ph;
+	if (!pNezPlay) return;
+	for (ph = ((NEZ_PLAY*)pNezPlay)->nrh[priority]; ph; ph = ph->next) ph->Proc(pNezPlay);
+}
+
 static void InstallPriorityResetHandler(NES_RESET_HANDLER **nrh, const NES_RESET_HANDLER *ph)
 {
 	NES_RESET_HANDLER *nh;

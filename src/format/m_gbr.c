@@ -629,6 +629,12 @@ static Uint32 dump_DEV_DMG_bf(Uint32 menu,unsigned char* mem){
 }
 //----------
 
+static void __fastcall gbr_cps_update(void *vpNezPlay){
+	NEZ_PLAY *pNezPlay = (NEZ_PLAY*)vpNezPlay;
+	Uint32 freq = NESAudioFrequencyGet(pNezPlay);
+	GBRDMG *THIS_ = pNezPlay->gbrdmg;
+	THIS_->cps = DivFix(DMG_BASECYCLES, freq, SHIFT_CPS + THIS_->isCGB);
+}
 
 static void reset(NEZ_PLAY *pNezPlay)
 {
@@ -1104,6 +1110,7 @@ static void __fastcall GBRDMGCPUReset(void *pNezPlay)
 
 const static NES_RESET_HANDLER gbrdmg_reset_handler[] = {
 	{ NES_RESET_SYS_LAST, GBRDMGCPUReset, },
+	{ NES_RESET_SPECIAL_CHANGE_FREQ, gbr_cps_update, },
 	{ 0,                  0, },
 };
 

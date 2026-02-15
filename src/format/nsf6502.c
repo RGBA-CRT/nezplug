@@ -382,7 +382,7 @@ static Uint32 DivFix(Uint32 p1, Uint32 p2, Uint32 fix)
 	return ret;
 }
 
-static void __fastcall NSF6502Reset(void *pNezPlay)
+static void __fastcall NSF6502CalcFreq(void *pNezPlay)
 {
 	NSFNSF *nsf = (NSFNSF*)((NEZ_PLAY*)pNezPlay)->nsf;
 	Uint8 *nsfhead = NSFGetHeader((NEZ_PLAY*)pNezPlay);
@@ -412,6 +412,40 @@ static void __fastcall NSF6502Reset(void *pNezPlay)
 		nsf->nsf6502.cpf[0] = muldiv(speed, 4 * 341 * 262    , 0x411a);
 		nsf->nsf6502.cpf[1] = muldiv(speed, 4 * 341 * 262 - 4, 0x411a);
 	}
+}
+
+static void __fastcall NSF6502Reset(void *pNezPlay)
+{
+	NSFNSF *nsf = (NSFNSF*)((NEZ_PLAY*)pNezPlay)->nsf;
+#if 0
+	Uint8 *nsfhead = NSFGetHeader((NEZ_PLAY*)pNezPlay);
+	Uint freq = NESAudioFrequencyGet((NEZ_PLAY*)pNezPlay);
+	Uint speed = 0;
+
+	nsf->nsf6502.palntsc = nsfhead[0x7a] & 1;
+	if (!nsf->nsf6502.palntsc && GetWordLE(nsfhead + 0x6E))
+		speed = GetWordLE(nsfhead + 0x6E);	/* NTSC tune */
+	else if (nsf->nsf6502.palntsc && GetWordLE(nsfhead + 0x78))
+		speed = GetWordLE(nsfhead + 0x78);	/* PAL  tune */
+
+	if (speed == 0)
+		speed = nsf->nsf6502.palntsc ? 0x4e20 : 0x411A;
+
+	nsf->nsf6502.cleft = 0;
+	nsf->nsf6502.cps = DivFix(NES_BASECYCLES, 12 * freq, SHIFT_CPS);
+
+	nsf->nsf6502.cycles = 0;
+	if (nsf->nsf6502.palntsc)
+	{
+		nsf->nsf6502.cpf[0] = muldiv(speed, 4 * 341 * 313    , 0x4e20);
+		nsf->nsf6502.cpf[1] = muldiv(speed, 4 * 341 * 313 - 4, 0x4e20);
+	}
+	else
+	{
+		nsf->nsf6502.cpf[0] = muldiv(speed, 4 * 341 * 262    , 0x411a);
+		nsf->nsf6502.cpf[1] = muldiv(speed, 4 * 341 * 262 - 4, 0x411a);
+	}
+#endif
 	nsf->nsf6502.iframe = 0;
 
 	NES6502Reset((NEZ_PLAY*)pNezPlay);
@@ -450,6 +484,7 @@ static void __fastcall NSF6502Reset(void *pNezPlay)
 }
 
 const static NES_RESET_HANDLER nsf6502_reset_handler[] = {
+	{ NES_RESET_SPECIAL_CHANGE_FREQ, NSF6502CalcFreq, },
 	{ NES_RESET_SYS_LAST, NSF6502Reset, },
 	{ 0,                  0, },
 };

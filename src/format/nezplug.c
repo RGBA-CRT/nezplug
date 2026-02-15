@@ -115,6 +115,7 @@ void NEZSetFrequency(NEZ_PLAY *pNezPlay, Uint freq)
 {
 	if (pNezPlay == 0) return;
 	NESAudioFrequencySet(pNezPlay, freq);
+	NESSpecialReset(pNezPlay, NES_RESET_SPECIAL_CHANGE_FREQ);
 }
 
 void NEZSetChannel(NEZ_PLAY *pNezPlay, Uint ch)
